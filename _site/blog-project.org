@@ -1,0 +1,43 @@
+# -*- org-hierarchical-todo-statistics: nil; org-latex-with-hyperref: nil; org-export-allow-bind-keywords: t -*-
+#+TITLE: Project 
+#+AUTHOR: Thomas Hackl
+#+DATE: 08/10/18
+
+* Setting up my first blog
+I want to start blogging using emacs orgmode and github. The most promising
+route seems to be something like emacs-orgmode-publish + Jekyll (which powers github)
+
+There are ton of tools, posts etc. out there
+
+emacs org-mode  + github
+https://orgmode.org/worg/org-blog-wiki.html -> https://orgmode.org/worg/org-tutorials/org-jekyll.html
+
+** install ruby and jekyll
+
+#+BEGIN_SRC sh
+sudo apt -y install ruby ruby-dev build-essential
+# set up local ~/ruby-gems folder in .path
+gem install jekyll bundler jekyll-sitemap pygments.rb
+#+END_SRC
+
+** set up thackl.github.io
+
+#+BEGIN_SRC sh
+cd ~blog
+git init
+git create thackl.github.io
+#+END_SRC
+
+Similar setup as
+http://cute-jumper.github.io/emacs/2013/10/06/orgmode-to-github-pages-with-jekyll,
+but try to have everything including org in the git repo
+
+
+#+BEGIN_SRC sh
+git clone https://github.com/plusjade/jekyll-bootstrap.git deploy
+cd deploy
+# already inside a git repo
+rm -fr .git
+# fix missing dir in theme paths
+cd assets/themes mkdir bootstrap-3 && mv * bootstrap-3
+#+END_SRC
