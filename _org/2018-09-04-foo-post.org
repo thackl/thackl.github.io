@@ -1,0 +1,30 @@
+#+BEGIN_HTML
+---
+layout: post
+title: "Using org-mode with Jekyll"
+excerpt: Introduce how to use Emacs's Org-mode with Jekyll to generate GitHub Pages
+tags:
+  - [Emacs, org-mode, GitHub, Jekyll]
+---
+#+END_HTML
+
+Need frontmatter for Jekyll
+
+#+BEGIN_SRC
+---
+layout: post
+title: "Using org-mode with Jekyll"
+excerpt: Introduce how to use Emacs's Org-mode with Jekyll to generate GitHub Pages
+tags:
+  - [Emacs, org-mode, GitHub, Jekyll]
+---
+#+END_SRC
+
+some content, aka /this/
+
+and the emacs publishing command 
+
+=C-c C-e P p=
+
+to convert =_org/2018-09-04-foo-post.org= 
+into =_posts/2018-09-04-foo-post.html=
