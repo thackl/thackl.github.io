@@ -25,6 +25,8 @@ into the {body} of the default.hbs template -->
         <article class="post-full {{ page.subclass }} {% unless page.cover %}no-image{% endunless %}">
 
             <header class="post-full-header">
+                <h1 class="post-full-title">{{ page.title }}</h1>
+                <hr>
                 <section class="post-full-meta">
                     <time class="post-full-meta-date" datetime="{{ page.date | date:'%e %B %Y' }}">{{ page.date | date:'%e %B %Y' }}</time>
                     {% if page.tags.size > 0 %}
@@ -38,7 +40,6 @@ into the {body} of the default.hbs template -->
                         {% endfor %}
                     {% endif %}
                 </section>
-                <h1 class="post-full-title">{{ page.title }}</h1>
             </header>
 
             {% if page.cover %}

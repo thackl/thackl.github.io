@@ -9,7 +9,7 @@ baseurl: /
 
 # Website info
 title: thacklog
-description: Thomas Hackl - Coding Biologist
+description: Thomas Hackl <br> Coding Biologist
 cover: assets/images/blog-cover-kilauea.jpg
 logo: assets/images/thackl-logo-blog.png
 favicon: assets/images/favicon.png
@@ -82,3 +82,6 @@ exclude:
   - LICENSE
   - "*.Rmd"
   - .git*
+  - gulpfile.js
+  - node_modules
+  - package.json
