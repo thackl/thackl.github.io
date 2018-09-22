@@ -66,6 +66,39 @@ Write a publish a short post file:_org/2018-09-04-blogging-with-emacs-org-mode-a
 
 The new post should be up on http://localhost:4000/ already.
 
-** A theme
-http://jekyllthemes.org/page8/
+** The Jasper2 theme
+
+Actually a lot more work than I thought :)
+
 https://github.com/jekyller/jasper2
+
+#+BEGIN_SRC sh
+mkdir ../blog-themes && cd ../blog-themes && git clone https://github.com/jekyller/jasper2
+# copy over stuff we need
+for FILE in assets _data _includes _layouts _plugins 404.html GHOST.txt Gemfile \
+ LICENSE atom.xml index.html script.py _config.yml; do
+  cp -r ../blog-themes/jasper2/$FILE .
+done;
+
+# update ruby gems to match ghost Gemfile requirements
+bundle install
+
+# NOW WE'RE LIVE
+bundle exec jekyll serve
+#+END_SRC
+
+Got quite a bit to work - cover image, logo, ...
+
+What doesn't work is the header nav bar on post pages - the elements seem to be
+there, but only get visible when zooming in a lot. No idea what's going on there...
+
+OK, seems to be an issue with my specific post - maybe the missing header image, ...
+
+** Customizing the Site and Jasper2
+*** Site Cover on Post nav
+I think some changes in post.html <div outer> or so
+*** Right-align Headline and Code Blocks
+*** preview code/figs in post feed instead of cover
+- http://html2canvas.hertzen.com/
+- post-card.html
+*** github link, email
