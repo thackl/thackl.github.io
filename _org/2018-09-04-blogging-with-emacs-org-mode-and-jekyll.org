@@ -101,4 +101,8 @@ command =C-c C-e P f= to convert =_org/2018-09-04-foo-post.org= to
 
 Now check http://localhost:4000/ to see a local copy of your post (make sure
 =bundle exec jekyll serve= is still running).  If you like what you see, commit
-and push the changes, so that they appear on your https://USERNAME.github.io/ site.
+and push the changes, so that they appear on your https://USERNAME.github.io/
+site. Now it should look something like this:
+
+[[file:img/jekyll-minima.png]]
+
