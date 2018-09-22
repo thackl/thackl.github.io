@@ -62,7 +62,7 @@ Add a minimal configuration for the org-mode publishing system to =~/.emacs=.
          )))
 #+END_SRC
 
-Write a publish a short post file:_org/2018-09-04-foo-post.org.
+Write a publish a short post file:_org/2018-09-04-blogging-with-emacs-org-mode-and-jekyll.org.
 
 The new post should be up on http://localhost:4000/ already.
 

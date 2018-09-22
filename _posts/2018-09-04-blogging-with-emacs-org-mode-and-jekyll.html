@@ -1,0 +1,130 @@
+---
+layout: post
+class: post-template
+title: "I'm blogging - using Emacs Org-Mode and Jekyll"
+author: thackl
+---
+
+<p>
+I've been thinking about getting my own blog up for, well, more than a while
+now, and guess what, I finally made it happen! This is is my first post, and it
+will cover the basics steps I took to get this site up and running.
+</p>
+
+<p>
+During my day-to-day work, I make heavy use of Emacs, <a href="https://orgmode.org/">Emacs Org-Mode</a>, git and
+<a href="https://github.com/thackl">GitHub</a>. So it only felt natural to also go and try to use those tools for my
+blogging adventure. And for the purpose of this post, I will assume a basic
+familiarity with those tools. After reviewing a few options on <a href="https://orgmode.org/worg/org-blog-wiki.html">org-blog-wiki</a>, I
+found a combination of <a href="https://orgmode.org/worg/org-tutorials/org-jekyll.html">Org-Mode and Jekyll</a> to be the most promising route. And
+as it turns out, setting it up is indeed quite straightforward.
+</p>
+
+<p>
+First, we need Jekyll and Ruby. If you're on a current Ubuntu, the following commands should do.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">install command on Ubuntu</span>
+sudo apt -y install ruby ruby-dev build-essential
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">set up local ~/ruby-gems folder in .path</span>
+gem install jekyll bundler jekyll-sitemap pygments.rb
+</pre>
+</div>
+
+<p>
+Next, we need to set up the blog, populate it using a Jekyll template structure,
+and push it to GitHub. And at this point, we are already live!
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="color: #f08080;">cd</span> ~/projects/communicate/blog
+git init
+git create thackl.github.io <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">use your own username here</span>
+
+jekyll new --force . <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">otherwise complains about non-empty</span>
+bundle exec jekyll serve <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">now it runs locally: http://localhost:4000/</span>
+
+sed -i <span style="color: #deb887;">'/_site/d'</span> .gitignore <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">remove _site from .gitignore</span>
+git add *
+git commit -am <span style="color: #deb887;">'jekyll scaffold'</span>
+git push -u origin master <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">we're live: https://thackl.github.io/</span>
+</pre>
+</div>
+
+<p>
+What is still missing, though, is a way to write blog posts in Org-Mode, and
+somehow convert them so they can be hosted by Jekyll. To achieve this, we will
+rely on Emacs publishing engine which offers conversion of .org pages to .html
+pages. There are different ways how to set the overall blog structure, depending
+on whether one wants to be able to write all pages, including the front page,
+about pages, etc. using org, or just the posts themselves.
+</p>
+
+<p>
+For the sake of simplicity, I went with option two: I only write the actual
+posts in Org-Mode, but not any of the other content pages. To do this, we need
+two things: 
+</p>
+
+<p>
+A sub-directory to store the org-posts in
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">mkdir _org &amp;&amp; <span style="color: #f08080;">cd</span> _org
+</pre>
+</div>
+
+<p>
+and a minimal configuration for the org-mode publishing system in our
+<code>~/.emacs</code>, so the html exports end up at the right location.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-elisp">(<span style="color: #8f62a6;">setq</span> org-publish-project-alist
+      '((<span style="color: #deb887;">"thackl.github.io"</span> <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">my blog project (just a name)</span>
+         <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Path to org files.</span>
+         <span style="color: #f08080;">:base-directory</span> <span style="color: #deb887;">"~/projects/communicate/blog/_org"</span>
+         <span style="color: #f08080;">:base-extension</span> <span style="color: #deb887;">"org"</span>
+         <span style="color: #7f7f7f;">;; </span><span style="color: #7f7f7f;">Path to Jekyll Posts</span>
+         <span style="color: #f08080;">:publishing-directory</span> <span style="color: #deb887;">"~/projects/communicate/blog/_posts/"</span>
+         <span style="color: #f08080;">:recursive</span> t
+         <span style="color: #f08080;">:publishing-function</span> org-html-publish-to-html
+         <span style="color: #f08080;">:headline-levels</span> 4
+         <span style="color: #f08080;">:html-extension</span> <span style="color: #deb887;">"html"</span>
+         <span style="color: #f08080;">:body-only</span> t
+         )))
+</pre>
+</div>
+
+<p>
+Now, we are ready to write our first simple post. Start with opening a file at
+<code>_org/YYYY-MM-DD-first-post.org</code> substituting <code>YYYY-MM-DD</code> with today's
+date. Add a Jekyll-style <a href="https://jekyllrb.com/docs/front-matter/">Front Matter</a> section with some required meta
+information.
+</p>
+
+<pre class="example">
+---
+layout: post
+title: "Using org-mode with Jekyll"
+excerpt: Introduce how to use Emacs's Org-mode with Jekyll to generate GitHub Pages
+---
+</pre>
+
+<p>
+Then, add some content, aka <i>this</i>, and finally, run the Emacs publishing
+command <code>C-c C-e P f</code> to convert <code>_org/2018-09-04-foo-post.org</code> to
+<code>_posts/2018-09-04-foo-post.html</code>.
+</p>
+
+<p>
+Now check <a href="http://localhost:4000/">http://localhost:4000/</a> to see a local copy of your post (make sure
+<code>bundle exec jekyll serve</code> is still running).  If you like what you see, commit
+and push the changes, so that they appear on your <a href="https://USERNAME.github.io/">https://USERNAME.github.io/</a> site.
+</p>
