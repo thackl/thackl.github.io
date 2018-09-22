@@ -2,4 +2,4 @@
 .jekyll-metadata
 ideas/*
 Gemfile.lock
-        
+node_modules
