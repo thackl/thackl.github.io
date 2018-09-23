@@ -95,10 +95,13 @@ there, but only get visible when zooming in a lot. No idea what's going on there
 OK, seems to be an issue with my specific post - maybe the missing header image, ...
 
 ** Customizing the Site and Jasper2
-*** Site Cover on Post nav
+*** DONE Site Cover on Post nav
+    CLOSED: [2018-09-22 Sat 20:07]
 I think some changes in post.html <div outer> or so
-*** Right-align Headline and Code Blocks
-*** preview code/figs in post feed instead of cover
+
+*** DONE Right-align Headline and Code Blocks
+    CLOSED: [2018-09-22 Sat 20:07]
+*** TODO preview code/figs in post feed instead of cover
 - http://html2canvas.hertzen.com/
 - post-card.html
-*** github link, email
+*** TODO github link, email
