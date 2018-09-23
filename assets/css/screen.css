@@ -573,14 +573,14 @@ The first (most recent) post in the list is styled to be bigger than the others 
 
 .post-full-header {
     margin: 0 auto;
-    padding: 6vw 3vw 3vw;
+    padding: 4vw 3vw 2vw;
     max-width: 1040px;
     text-align: left;
 }
 
 @media (max-width: 1170px) {
     .post-full-header {
-        padding: 5vw 7vw 0;
+        padding: 5vw 7vw 3vw;
     }
 }
 @media (max-width: 800px) {
@@ -1073,6 +1073,11 @@ Usage (In Ghost editor):
 
 .cv-table td:first-child {
     width: 170px;
+}
+
+.publication-list {
+    font-size: 1.8rem;
+    line-height: 1.5;
 }
 
 /* 7.1. Subscribe Form

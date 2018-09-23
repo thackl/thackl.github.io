@@ -109,4 +109,8 @@ I think some changes in post.html <div outer> or so
 *** DONE CV
     CLOSED: [2018-09-23 Sun 01:10]
 *** TODO About me
+Life stuff, fotos, etc
 *** TODO Research
+*** DONE Publications
+    CLOSED: [2018-09-23 Sun 04:29]
+[[file:_publication/google-scholar.R]]
