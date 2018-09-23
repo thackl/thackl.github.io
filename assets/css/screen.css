@@ -210,13 +210,15 @@ body {
     font-size: 1.8rem;
 }
 
-.post-template .site-nav {
+.post-template .site-nav,
+.page-template .site-nav {
     padding: 0 3vw 0;
     max-width: 1040px;
 }
 
 @media (max-width: 1170px) {
-    .post-template .site-nav {
+    .post-template .site-nav,
+    .page-template .site-nav {
         padding: 0 7vw 0;
     }
 }
@@ -324,16 +326,16 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 }
 
 .social-link svg {
-    height: 1.8rem;
+    height: 2.4rem;
     fill: #fff;
 }
 
 .social-link-fb svg {
-    height: 1.5rem;
+    height: 2.4rem;
 }
 
 .social-link-wb svg {
-    height: 1.6rem;
+    height: 2.4rem;
 }
 
 .social-link-wb svg path {
@@ -341,7 +343,7 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 }
 
 .social-link-rss svg {
-    height: 1.9rem;
+    height: 2.4rem;
 }
 
 .subscribe-button {
@@ -913,7 +915,8 @@ Usage (In Ghost editor):
 .post-full-content h3 {
     margin: 0.5em 0 0.2em 0;
     font-size: 2.8rem;
-    font-weight: 700;
+    font-weight: 300;
+    color: var(--blue);
 }
 @media (max-width: 500px) {
     .post-full-content h3 {
@@ -1019,9 +1022,10 @@ Usage (In Ghost editor):
     border-spacing: 0;
     border-collapse: collapse;
     font-family: -apple-system, BlinkMacSystemFont, "Fira Sans Light", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    font-size: 1.6rem;
-    white-space: nowrap;
+    font-size: 1.8rem;
+    /* white-space: nowrap; */
     vertical-align: top;
+    line-height: 1.5;
 }
 
 .post-full-content table {
@@ -1030,12 +1034,14 @@ Usage (In Ghost editor):
     background-attachment: scroll, scroll;
     background-size: 10px 100%, 10px 100%;
     background-repeat: no-repeat;
+    text-align: justify;
 }
 
 .post-full-content table td:first-child {
     background-image: linear-gradient(to right, rgba(255,255,255, 1) 50%, rgba(255,255,255, 0) 100%);
     background-size: 20px 100%;
     background-repeat: no-repeat;
+    text-align: left;
 }
 
 .post-full-content table td:last-child {
@@ -1057,12 +1063,16 @@ Usage (In Ghost editor):
 
 .post-full-content table th,
 .post-full-content table td {
-    padding: 6px 12px;
-    border: color(var(--whitegrey) l(-1%) s(-5%)) 1px solid;
+    padding: 6px 0px;
+    border: color(var(--whitegrey) l(-1%) s(-5%)) 0px solid;
 }
 
 .post-full-content .org-src-container {
     width:100%;
+}
+
+.cv-table td:first-child {
+    width: 170px;
 }
 
 /* 7.1. Subscribe Form

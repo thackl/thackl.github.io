@@ -1,0 +1,11 @@
+#+BEGIN_HTML
+---
+layout: page
+class: page-template
+author: thackl
+---
+#+END_HTML
+
+
+
+foo bar baz

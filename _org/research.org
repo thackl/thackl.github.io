@@ -1,0 +1,10 @@
+#+BEGIN_HTML
+---
+layout: page
+class: page-template
+title: "Research"
+author: thackl
+---
+#+END_HTML
+
+what I do
