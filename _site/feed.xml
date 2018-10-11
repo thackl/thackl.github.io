@@ -1,4 +1,257 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-09-23T05:24:39-04:00</updated><id>/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">I’m blogging - using Emacs Org-Mode and Jekyll</title><link href="/blogging-with-emacs-org-mode-and-jekyll" rel="alternate" type="text/html" title="I'm blogging - using Emacs Org-Mode and Jekyll" /><published>2018-09-04T00:00:00-04:00</published><updated>2018-09-04T00:00:00-04:00</updated><id>/blogging-with-emacs-org-mode-and-jekyll</id><content type="html" xml:base="/blogging-with-emacs-org-mode-and-jekyll">&lt;p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-10-11T07:59:30-04:00</updated><id>http://localhost:4000/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">Plotting a ggtree and ggplots side by side</title><link href="http://localhost:4000/ggtree-composite-plots" rel="alternate" type="text/html" title="Plotting a ggtree and ggplots side by side" /><published>2018-10-08T00:00:00-04:00</published><updated>2018-10-08T00:00:00-04:00</updated><id>http://localhost:4000/ggtree-composite-plots</id><content type="html" xml:base="http://localhost:4000/ggtree-composite-plots">&lt;p&gt;
+Plotting phylogenies and associated data side by side is a good way to explore
+evolutionary patterns in your data.  In this post I will describe my approach
+for creating such plots in R using &lt;a href=&quot;https://ggplot2.tidyverse.org/index.html&quot;&gt;ggplot&lt;/a&gt;, &lt;a href=&quot;https://guangchuangyu.github.io/software/ggtree/&quot;&gt;ggtree&lt;/a&gt;, and &lt;a href=&quot;https://github.com/thomasp85/patchwork&quot;&gt;patchwork&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;p&gt;
+ggtree itself comes with a few methods (&lt;code&gt;gheatmap&lt;/code&gt;, &lt;code&gt;msaplot&lt;/code&gt;, &lt;code&gt;facet_plot&lt;/code&gt;) to
+display additional data next to the trees. Those methods, however, always
+combine the data and the tree within the same plot area. This considerably
+limits customizability. I, therefore, decided to go down a different route, and
+combine multiple individual plots in order to retain a high degree of
+customizability.
+&lt;/p&gt;
+
+&lt;p&gt;
+Let's start with a simple example. We need a dummy tree, and two dummy data sets
+that we want to plot. Both, tree and data use the same labels to refer to the
+different organisms.
+&lt;/p&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-R&quot;&gt;&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(tidyverse)
+&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(ggtree)
+&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(patchwork)
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;a tree&lt;/span&gt;
+set.seed(1338)
+tr &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; rtree(10)
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;and some dummy data&lt;/span&gt;
+df1 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; tibble(
+  &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;only some labels match&lt;/span&gt;
+  label = c(tr$tip.label[sample(6, 6)], &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;u9&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;v9&quot;&lt;/span&gt;),
+  value = label %&amp;gt;% str_sub(2) %&amp;gt;% as.numeric)
+df2 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; tibble(
+  label = rep(tr$tip.label, 4),
+  category = rep(1:4, each=10),
+  value = rnorm(40, 0, 3))
+
+&lt;span style=&quot;color: #daa520;&quot;&gt;no_legend&lt;/span&gt; &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt;() theme(legend.position=&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;none&quot;&lt;/span&gt;)
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;plot the tree,&lt;/span&gt;
+gg_tr &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; ggtree(tr) + geom_tiplab(align=&lt;span style=&quot;color: #98f5ff;&quot;&gt;TRUE&lt;/span&gt;) +
+  scale_x_continuous(expand=expand_scale(0.2)) &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;make more room for the labels&lt;/span&gt;
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;the data points, the histogram and the heatmap&lt;/span&gt;
+gg_hist &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot(df1, aes(label, value)) +
+  geom_col(aes(fill=substr(label, 1, 1))) + no_legend()
+gg_heat &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot(df2, aes(category, label)) + geom_tile(aes(fill=value)) +
+  scale_fill_gradient2() + no_legend()
+
+gg_tr + gg_hist + gg_heat + plot_annotation(tag_levels=&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;A&quot;&lt;/span&gt;)
+
+ggsave(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;img/ggtree-composite-1.png&quot;&lt;/span&gt;, type=&lt;span style=&quot;color: #deb887;&quot;&gt;'cairo'&lt;/span&gt;, width=8, height=4)
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;img/ggtree-composite-1.png&quot; alt=&quot;ggtree-composite-1.png&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;
+So far so good. Now we want to reorder the data in the plots so it aligns with
+the leaves in our tree.
+&lt;/p&gt;
+
+&lt;p&gt;
+Under the hood, ggtrees are laid out on a numeric coordinate system. By default,
+the leaves match whole numbers, from 1 to the number of leaves. The easiest way
+to align data in other plots to the tree is to match the y-coordinates using
+common labels. So let's start with that.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;code&gt;tree_y()&lt;/code&gt; is a little helper function that takes a ggtree and a data frame with
+a &lt;i&gt;label&lt;/i&gt; column. The function matches the ggtree and the data frame by the
+label column and returns the new y-coordinates for the data. We will use this
+function to transform the labels in our data on-the-fly in the ggplot aesthetics
+argument.
+&lt;/p&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-R&quot;&gt;&lt;span style=&quot;color: #daa520;&quot;&gt;tree_y&lt;/span&gt; &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt;  &lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt;(ggtree, data){
+  &lt;span style=&quot;color: #8f62a6;&quot;&gt;if&lt;/span&gt;(!inherits(ggtree, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;ggtree&quot;&lt;/span&gt;))
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;stop&lt;/span&gt;(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;not a ggtree object&quot;&lt;/span&gt;)
+  left_join(select(data, label), select(ggtree$data, label, y)) %&amp;gt;%
+    pull(y)
+}
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;replot histogram and heatmap, match the y-coords to the tree&lt;/span&gt;
+gg_hist &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot(df1, aes(tree_y(gg_tr, df1), value)) +
+  geom_col(aes(fill=substr(label, 1, 1))) + no_legend() +
+  coord_flip() &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;flip this plot&lt;/span&gt;
+gg_heat &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot(df2, aes(category, y=tree_y(gg_tr, df2))) +
+  geom_tile(aes(fill=value)) +
+  scale_fill_gradient2() + no_legend()
+
+gg_tr + gg_hist + gg_heat + plot_annotation(tag_levels=&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;A&quot;&lt;/span&gt;)
+
+ggsave(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;img/ggtree-composite-2.png&quot;&lt;/span&gt;, type=&lt;span style=&quot;color: #deb887;&quot;&gt;'cairo'&lt;/span&gt;, width=8, height=4)
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;img/ggtree-composite-2.png&quot; alt=&quot;ggtree-composite-2.png&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+OK, this doesn't look bad at all. The data in all plots is now reordered and
+matches the order of the tree leaves. However, it doesn't align properly
+yet. That has two reasons:
+&lt;/p&gt;
+
+&lt;p&gt;
+First, the plotted data have different y-limits: our first data set is missing data
+for the top tree leaf (t8), and in the heat map the tiles are centered around
+the leaf y-coordinates, and actually extend outwards by 0.5 units.
+&lt;/p&gt;
+
+&lt;p&gt;
+Second, the different plots also have different amounts of expansion space
+around their outer data points. This is a ggplot feature, and explained under
+the expand argument of the &lt;a href=&quot;https://ggplot2.tidyverse.org/reference/scale_continuous.html&quot;&gt;continuous scales&lt;/a&gt;: &quot;The defaults are to expand the
+scale by 5% on each side for continuous variables, and by 0.6 units on each side
+for discrete variables&quot;.
+&lt;/p&gt;
+
+&lt;p&gt;
+To address those two related issues, we need a way to control the y-limits and
+the expansion space around it for the tree and the plots. For the tree, it's
+quite simple. All we need to do is settle on a fixed expansion space that gives
+enough room for leaf-centered objects such as tiles and bars in aligned
+plots. We don't have to do anything about the y-limits of the tree, because
+those are our reference.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;code&gt;scale_y_tree()&lt;/code&gt; is a simple wrapper around &lt;code&gt;scale_y_continuous()&lt;/code&gt;, that when
+applied to the ggtree plot, resets the expansion space around the tree limits to
+0.6 units on each side of the leaves.
+&lt;/p&gt;
+
+&lt;p&gt;
+For the plots, it's a bit more involved, because we want to derive the y-limits
+from the tree, rather than data. The way I made it work is by writing the
+wrapper function &lt;code&gt;ggtreeplot()&lt;/code&gt;. The function basically behaves like &lt;code&gt;ggplot()&lt;/code&gt;,
+but take a ggtree as an additional argument. It uses the ggtree to a) match the
+y-coordinates of the data by common labels (just as we did on-the-fly for the
+previous plots), and b) it computes new y-limits from the tree and adds those
+and our predefined expansion space of 0.6 to the plot.
+&lt;/p&gt;
+
+&lt;p&gt;
+The &lt;code&gt;flip&lt;/code&gt; parameter is necessary when x and y in the plot will be
+flipped. Because in that case, we need to set our limits internally on the
+x-axis, which will later become the y-axis.
+&lt;/p&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-R&quot;&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;overwrite the default expand for continuous scales&lt;/span&gt;
+&lt;span style=&quot;color: #daa520;&quot;&gt;scale_y_tree&lt;/span&gt; &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt;(expand=expand_scale(0, 0.6), ...){
+    scale_y_continuous(expand=expand, ...)
+}
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;get the range of the ggtree y-axis data&lt;/span&gt;
+&lt;span style=&quot;color: #daa520;&quot;&gt;tree_ylim&lt;/span&gt; &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt;(ggtree){
+  &lt;span style=&quot;color: #8f62a6;&quot;&gt;if&lt;/span&gt;(!inherits(ggtree, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;ggtree&quot;&lt;/span&gt;))
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;stop&lt;/span&gt;(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;not a ggtree object&quot;&lt;/span&gt;)
+  range(ggtree$data$y)
+}
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;plot data next to a ggtree aligned by shared labels&lt;/span&gt;
+&lt;span style=&quot;color: #daa520;&quot;&gt;ggtreeplot&lt;/span&gt; &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt;(ggtree, data = &lt;span style=&quot;color: #98f5ff;&quot;&gt;NULL&lt;/span&gt;, mapping = aes(), flip=&lt;span style=&quot;color: #98f5ff;&quot;&gt;FALSE&lt;/span&gt;,
+     expand_limits=expand_scale(0,.6), ...){
+  
+  &lt;span style=&quot;color: #8f62a6;&quot;&gt;if&lt;/span&gt;(!inherits(ggtree, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;ggtree&quot;&lt;/span&gt;))
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;stop&lt;/span&gt;(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;not a ggtree object&quot;&lt;/span&gt;)
+
+  &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;match the tree limits&lt;/span&gt;
+  limits &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; tree_ylim(ggtree)
+  limits[1] &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; limits[1] + (limits[1] * expand_limits[1]) - expand_limits[2]
+  limits[2] &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; limits[2] + (limits[2] * expand_limits[3]) + expand_limits[4]
+  
+  &lt;span style=&quot;color: #8f62a6;&quot;&gt;if&lt;/span&gt;(flip){
+    mapping &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; modifyList(aes_(x=~x), mapping)
+    data &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; mutate(data, x=tree_y(ggtree, data))
+    gg &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot(data=data, mapping = mapping, ...) +
+      scale_x_continuous(limits=limits, expand=c(0,0))
+  }&lt;span style=&quot;color: #8f62a6;&quot;&gt;else&lt;/span&gt;{
+    mapping &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; modifyList(aes_(y=~y), mapping)
+    data &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; mutate(data, y=tree_y(ggtree, data))
+    gg &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot(data=data, mapping = mapping, ...) +
+      scale_y_continuous(limits=limits, expand=c(0,0))
+  }
+  gg
+}
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;get rid of superfluous axis - this works after coord_flip, so it also works&lt;/span&gt;
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;for the rotated histogram&lt;/span&gt;
+&lt;span style=&quot;color: #daa520;&quot;&gt;no_y_axis&lt;/span&gt; &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt; () 
+  theme(axis.line.y = element_blank(), 
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+Now we can plot our tree and the data side by side using our new functions. We
+plot the tree as before but add the fixed y scale. For the data, we replace the
+&lt;code&gt;ggplot()&lt;/code&gt; call with the &lt;code&gt;ggtreeplot()&lt;/code&gt; call. Setting the y-aesthetic (or x in
+case of flipped plots) is no longer necessary. &lt;code&gt;ggplotree()&lt;/code&gt; assumes that it
+should point to the coordinates we got from matching the labels from the data to
+the tree.
+&lt;/p&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-R&quot;&gt;gg_tr &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; ggtree(tr) + geom_tiplab(align=&lt;span style=&quot;color: #98f5ff;&quot;&gt;TRUE&lt;/span&gt;) +
+  scale_x_continuous(expand=expand_scale(0.2)) + &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;make more room for the labels&lt;/span&gt;
+  scale_y_tree()
+gg_hist &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; ggtreeplot(gg_tr, df1, aes(y=value), flip=&lt;span style=&quot;color: #98f5ff;&quot;&gt;TRUE&lt;/span&gt;) +
+  geom_col(aes(fill=substr(label, 1, 1))) + no_legend() +
+  coord_flip() + no_y_axis()
+gg_heat &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; ggtreeplot(gg_tr, df2, aes(x=category)) + geom_tile(aes(fill=value)) +
+  scale_fill_gradient2() + no_legend() + no_y_axis() 
+
+gg_tr + gg_hist + gg_heat + plot_annotation(tag_levels=&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;A&quot;&lt;/span&gt;)
+
+ggsave(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;img/ggtree-composite-3.png&quot;&lt;/span&gt;, type=&lt;span style=&quot;color: #deb887;&quot;&gt;'cairo'&lt;/span&gt;, width=8, height=4)
+&lt;/pre&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;img/ggtree-composite-3.png&quot; alt=&quot;ggtree-composite-3.png&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+Et voilà! A tree and two beautiful plots, side by side, and perfectly
+aligned. The grammar for this final plot is pretty much identical to what we
+used for the initial unaligned ggtree/ggplots. This makes it very easy to go
+from a set of generic plots to this composite plot. At the same time, we retain
+the level modularity and customizability that we had with the original
+ggplots. This, in my opinion, is what makes this approach powerful.
+&lt;/p&gt;</content><author><name>thackl</name></author><summary type="html">Plotting phylogenies and associated data side by side is a good way to explore evolutionary patterns in your data. In this post I will describe my approach for creating such plots in R using ggplot, ggtree, and patchwork.</summary></entry><entry><title type="html">I’m blogging - using Emacs Org-Mode and Jekyll</title><link href="http://localhost:4000/blogging-with-emacs-org-mode-and-jekyll" rel="alternate" type="text/html" title="I'm blogging - using Emacs Org-Mode and Jekyll" /><published>2018-09-04T00:00:00-04:00</published><updated>2018-09-04T00:00:00-04:00</updated><id>http://localhost:4000/blogging-with-emacs-org-mode-and-jekyll</id><content type="html" xml:base="http://localhost:4000/blogging-with-emacs-org-mode-and-jekyll">&lt;p&gt;
 I've been thinking about getting my own blog up for, well, more than a while
 now, and guess what, I finally made it happen! This is is my first post, and it
 will cover the basics steps I took to get this site up and running.

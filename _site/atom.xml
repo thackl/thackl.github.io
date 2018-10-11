@@ -4,7 +4,26 @@
     <title> - Articles</title>
     <description>Thomas Hackl &lt;br&gt; Coding Biologist</description>
     <link>
-    </link>
+    http://localhost:4000</link>
+    
+      
+      <item>
+        <title>Plotting a ggtree and ggplots side by side</title>
+        
+          <description>&lt;p&gt;
+Plotting phylogenies and associated data side by side is a good way to explore
+evolutionary patterns in your data.  In this post I will describe my approach
+for creating such plots in R using &lt;a href=&quot;https://ggplot2.tidyverse.org/index.html&quot;&gt;ggplot&lt;/a&gt;, &lt;a href=&quot;https://guangchuangyu.github.io/software/ggtree/&quot;&gt;ggtree&lt;/a&gt;, and &lt;a href=&quot;https://github.com/thomasp85/patchwork&quot;&gt;patchwork&lt;/a&gt;.
+&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 08 Oct 2018 00:00:00 -0400</pubDate>
+        <link>
+        http://localhost:4000/ggtree-composite-plots</link>
+        <guid isPermaLink="true">http://localhost:4000/ggtree-composite-plots</guid>
+      </item>
+      
     
       
       <item>
@@ -20,8 +39,8 @@ will cover the basics steps I took to get this site up and running.
         
         <pubDate>Tue, 04 Sep 2018 00:00:00 -0400</pubDate>
         <link>
-        /blogging-with-emacs-org-mode-and-jekyll</link>
-        <guid isPermaLink="true">/blogging-with-emacs-org-mode-and-jekyll</guid>
+        http://localhost:4000/blogging-with-emacs-org-mode-and-jekyll</link>
+        <guid isPermaLink="true">http://localhost:4000/blogging-with-emacs-org-mode-and-jekyll</guid>
       </item>
       
     
