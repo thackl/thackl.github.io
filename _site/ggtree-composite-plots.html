@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Document Settings -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Base Meta -->
+    <!-- dynamically fixing the title for tag/author pages -->
+
+
+
+    <title>Plotting a ggtree and ggplots side by side</title>
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Styles'n'Scripts -->
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>.hljs { background: none; }</style>
+
+    <!-- This tag outputs SEO meta+structured data and other important settings -->
+    <meta name="description" content="Thomas Hackl <br> Coding Biologist" />
+    <link rel="shortcut icon" href="http://localhost:4000/assets/images/favicon.png" type="image/png" />
+    <link rel="canonical" href="http://localhost:4000/ggtree-composite-plots" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+
+     <!--title below is coming from _includes/dynamic_title-->
+    <meta property="og:site_name" content="thacklog" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Plotting a ggtree and ggplots side by side" />
+    <meta property="og:description" content="Thomas Hackl <br> Coding Biologist" />
+    <meta property="og:url" content="http://localhost:4000/ggtree-composite-plots" />
+    <meta property="og:image" content="http://localhost:4000/img/ggtree-composite-3.png" />
+    <meta property="article:publisher" content="https://www.facebook.com/false" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Plotting a ggtree and ggplots side by side" />
+    <meta name="twitter:description" content="Thomas Hackl <br> Coding Biologist" />
+    <meta name="twitter:url" content="http://localhost:4000/" />
+    <meta name="twitter:image" content="http://localhost:4000/img/ggtree-composite-3.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="thacklog" />
+    <meta name="twitter:site" content="@th4ckl" />
+    <meta name="twitter:creator" content="@th4ckl" />
+    <meta property="og:image:width" content="2000" />
+    <meta property="og:image:height" content="666" />
+
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Website",
+    "publisher": {
+        "@type": "Organization",
+        "name": "thacklog",
+        "logo": "http://localhost:4000/assets/images/thackl-logo-blog.png"
+    },
+    "url": "http://localhost:4000/ggtree-composite-plots",
+    "image": {
+        "@type": "ImageObject",
+        "url": "http://localhost:4000/img/ggtree-composite-3.png",
+        "width": 2000,
+        "height": 666
+    },
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "http://localhost:4000/ggtree-composite-plots"
+    },
+    "description": "Thomas Hackl <br> Coding Biologist"
+}
+    </script>
+
+    <!-- <script type="text/javascript" src="https://demo.ghost.io/public/ghost-sdk.min.js?v=724281a32e"></script>
+    <script type="text/javascript">
+    ghost.init({
+    	clientId: "ghost-frontend",
+    	clientSecret: "f84a07a72b17"
+    });
+    </script> -->
+
+    <meta name="generator" content="Jekyll 3.6.2" />
+    <link rel="alternate" type="application/rss+xml" title="Plotting a ggtree and ggplots side by side" href="/feed.xml" />
+
+
+</head>
+<body class="post-template">
+
+    <div class="site-wrapper">
+        <!-- All the main content gets inserted here, index.hbs, post.hbs, etc -->
+        <!-- default -->
+
+<!-- The tag above means: insert everything in this file
+into the {body} of the default.hbs template -->
+
+<header class="site-header outer" style="background-image: url(/assets/images/blog-cover-kilauea.jpg)">
+    <div class="inner">
+        <nav class="site-nav">
+    <div class="site-nav-left">
+        
+            
+                <a class="site-nav-logo" href="http://localhost:4000/"><img src="/assets/images/thackl-logo-blog.png" alt="thacklog" /></a>
+            
+        
+        
+    </div>
+    <div class="site-nav-right">
+        <div class="social-links">
+            
+            
+                <a class="social-link social-link-gh" href="https://github.com/thackl" target="_blank" rel="noopener"><svg viewBox="0 0 31.75 31.75" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-77.408 -113.62)">
+  <path d="m93.282 113.62c-8.7662 0-15.874 7.1075-15.874 15.876 0 7.0139 4.5483 12.964 10.857 15.064 0.79427 0.14531 1.0837-0.34501 1.0837-0.76601 0-0.37618-0.01355-1.3751-0.02154-2.6995-4.4157 0.95896-5.3474-2.1284-5.3474-2.1284-0.72215-1.8341-1.763-2.3224-1.763-2.3224-1.4414-0.9843 0.10915-0.96482 0.10915-0.96482 1.5934 0.11216 2.4315 1.6363 2.4315 1.6363 1.416 2.4257 3.716 1.725 4.6204 1.3186 0.14423-1.0252 0.55355-1.725 1.0077-2.1216-3.525-0.40054-7.2312-1.763-7.2312-7.8462 0-1.7327 0.61885-3.1498 1.6343-4.2598-0.16374-0.40151-0.70851-2.0154 0.15495-4.2013 0 0 1.3332-0.42686 4.366 1.6275 1.266-0.3528 2.6245-0.52823 3.9743-0.53408 1.3478 5e-3 2.7064 0.18122 3.9743 0.53408 3.0309-2.0544 4.3612-1.6275 4.3612-1.6275 0.86639 2.1859 0.32161 3.7998 0.15788 4.2013 1.0174 1.11 1.6324 2.5271 1.6324 4.2598 0 6.0988-3.7121 7.4408-7.2488 7.8335 0.57012 0.4902 1.0779 1.4589 1.0779 2.9402 0 2.1216-0.0196 3.8339-0.0196 4.3543 0 0.42493 0.28554 0.91901 1.0915 0.76405 6.3035-2.1041 10.848-8.0499 10.848-15.062 0-8.7681-7.1084-15.876-15.877-15.876" fill="#fff" fill-rule="evenodd"/>
+ </g>
+</svg>
+</a>
+            
+            
+                <a class="social-link social-link-tw" href="https://twitter.com/th4ckl" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+</a>
+            
+        </div>
+        
+    </div>
+</nav>
+
+    </div>
+</header>
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<main id="site-main" class="site-main outer" role="main">
+    <div class="inner">
+
+        <article class="post-full  ">
+
+            <header class="post-full-header">
+                <h1 class="post-full-title">Plotting a ggtree and ggplots side by side</h1>
+                <hr>
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime=" 8 October 2018"> 8 October 2018</time>
+                    
+                </section>
+            </header>
+
+            
+            <figure class="post-full-image" style="background-image: url(/img/ggtree-composite-3.png)">
+            </figure>
+            
+
+            <section class="post-full-content">
+                <div class="kg-card-markdown">
+                    <p>
+Plotting phylogenies and associated data side by side is a good way to explore
+evolutionary patterns in your data.  In this post I will describe my approach
+for creating such plots in R using <a href="https://ggplot2.tidyverse.org/index.html">ggplot</a>, <a href="https://guangchuangyu.github.io/software/ggtree/">ggtree</a>, and <a href="https://github.com/thomasp85/patchwork">patchwork</a>.
+</p>
+
+<p>
+ggtree itself comes with a few methods (<code>gheatmap</code>, <code>msaplot</code>, <code>facet_plot</code>) to
+display additional data next to the trees. Those methods, however, always
+combine the data and the tree within the same plot area. This considerably
+limits customizability. I, therefore, decided to go down a different route, and
+combine multiple individual plots in order to retain a high degree of
+customizability.
+</p>
+
+<p>
+Let's start with a simple example. We need a dummy tree, and two dummy data sets
+that we want to plot. Both, tree and data use the same labels to refer to the
+different organisms.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #a2cd5a;">library</span>(tidyverse)
+<span style="color: #a2cd5a;">library</span>(ggtree)
+<span style="color: #a2cd5a;">library</span>(patchwork)
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">a tree</span>
+set.seed(1338)
+tr <span style="color: #a2cd5a;">&lt;-</span> rtree(10)
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">and some dummy data</span>
+df1 <span style="color: #a2cd5a;">&lt;-</span> tibble(
+  <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">only some labels match</span>
+  label = c(tr$tip.label[sample(6, 6)], <span style="color: #deb887;">"u9"</span>, <span style="color: #deb887;">"v9"</span>),
+  value = label %&gt;% str_sub(2) %&gt;% as.numeric)
+df2 <span style="color: #a2cd5a;">&lt;-</span> tibble(
+  label = rep(tr$tip.label, 4),
+  category = rep(1:4, each=10),
+  value = rnorm(40, 0, 3))
+
+<span style="color: #daa520;">no_legend</span> <span style="color: #a2cd5a;">&lt;-</span> <span style="color: #8f62a6;">function</span>() theme(legend.position=<span style="color: #deb887;">"none"</span>)
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">plot the tree,</span>
+gg_tr <span style="color: #a2cd5a;">&lt;-</span> ggtree(tr) + geom_tiplab(align=<span style="color: #98f5ff;">TRUE</span>) +
+  scale_x_continuous(expand=expand_scale(0.2)) <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">make more room for the labels</span>
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">the data points, the histogram and the heatmap</span>
+gg_hist <span style="color: #a2cd5a;">&lt;-</span> ggplot(df1, aes(label, value)) +
+  geom_col(aes(fill=substr(label, 1, 1))) + no_legend()
+gg_heat <span style="color: #a2cd5a;">&lt;-</span> ggplot(df2, aes(category, label)) + geom_tile(aes(fill=value)) +
+  scale_fill_gradient2() + no_legend()
+
+gg_tr + gg_hist + gg_heat + plot_annotation(tag_levels=<span style="color: #deb887;">"A"</span>)
+
+ggsave(<span style="color: #deb887;">"img/ggtree-composite-1.png"</span>, type=<span style="color: #deb887;">'cairo'</span>, width=8, height=4)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/ggtree-composite-1.png" alt="ggtree-composite-1.png" />
+</p>
+</div>
+
+
+<p>
+So far so good. Now we want to reorder the data in the plots so it aligns with
+the leaves in our tree.
+</p>
+
+<p>
+Under the hood, ggtrees are laid out on a numeric coordinate system. By default,
+the leaves match whole numbers, from 1 to the number of leaves. The easiest way
+to align data in other plots to the tree is to match the y-coordinates using
+common labels. So let's start with that.
+</p>
+
+<p>
+<code>tree_y()</code> is a little helper function that takes a ggtree and a data frame with
+a <i>label</i> column. The function matches the ggtree and the data frame by the
+label column and returns the new y-coordinates for the data. We will use this
+function to transform the labels in our data on-the-fly in the ggplot aesthetics
+argument.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #daa520;">tree_y</span> <span style="color: #a2cd5a;">&lt;-</span>  <span style="color: #8f62a6;">function</span>(ggtree, data){
+  <span style="color: #8f62a6;">if</span>(!inherits(ggtree, <span style="color: #deb887;">"ggtree"</span>))
+    <span style="color: #8f62a6;">stop</span>(<span style="color: #deb887;">"not a ggtree object"</span>)
+  left_join(select(data, label), select(ggtree$data, label, y)) %&gt;%
+    pull(y)
+}
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">replot histogram and heatmap, match the y-coords to the tree</span>
+gg_hist <span style="color: #a2cd5a;">&lt;-</span> ggplot(df1, aes(tree_y(gg_tr, df1), value)) +
+  geom_col(aes(fill=substr(label, 1, 1))) + no_legend() +
+  coord_flip() <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">flip this plot</span>
+gg_heat <span style="color: #a2cd5a;">&lt;-</span> ggplot(df2, aes(category, y=tree_y(gg_tr, df2))) +
+  geom_tile(aes(fill=value)) +
+  scale_fill_gradient2() + no_legend()
+
+gg_tr + gg_hist + gg_heat + plot_annotation(tag_levels=<span style="color: #deb887;">"A"</span>)
+
+ggsave(<span style="color: #deb887;">"img/ggtree-composite-2.png"</span>, type=<span style="color: #deb887;">'cairo'</span>, width=8, height=4)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/ggtree-composite-2.png" alt="ggtree-composite-2.png" />
+</p>
+</div>
+
+<p>
+OK, this doesn't look bad at all. The data in all plots is now reordered and
+matches the order of the tree leaves. However, it doesn't align properly
+yet. That has two reasons:
+</p>
+
+<p>
+First, the plotted data have different y-limits: our first data set is missing data
+for the top tree leaf (t8), and in the heat map the tiles are centered around
+the leaf y-coordinates, and actually extend outwards by 0.5 units.
+</p>
+
+<p>
+Second, the different plots also have different amounts of expansion space
+around their outer data points. This is a ggplot feature, and explained under
+the expand argument of the <a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">continuous scales</a>: "The defaults are to expand the
+scale by 5% on each side for continuous variables, and by 0.6 units on each side
+for discrete variables".
+</p>
+
+<p>
+To address those two related issues, we need a way to control the y-limits and
+the expansion space around it for the tree and the plots. For the tree, it's
+quite simple. All we need to do is settle on a fixed expansion space that gives
+enough room for leaf-centered objects such as tiles and bars in aligned
+plots. We don't have to do anything about the y-limits of the tree, because
+those are our reference.
+</p>
+
+<p>
+<code>scale_y_tree()</code> is a simple wrapper around <code>scale_y_continuous()</code>, that when
+applied to the ggtree plot, resets the expansion space around the tree limits to
+0.6 units on each side of the leaves.
+</p>
+
+<p>
+For the plots, it's a bit more involved, because we want to derive the y-limits
+from the tree, rather than data. The way I made it work is by writing the
+wrapper function <code>ggtreeplot()</code>. The function basically behaves like <code>ggplot()</code>,
+but take a ggtree as an additional argument. It uses the ggtree to a) match the
+y-coordinates of the data by common labels (just as we did on-the-fly for the
+previous plots), and b) it computes new y-limits from the tree and adds those
+and our predefined expansion space of 0.6 to the plot.
+</p>
+
+<p>
+The <code>flip</code> parameter is necessary when x and y in the plot will be
+flipped. Because in that case, we need to set our limits internally on the
+x-axis, which will later become the y-axis.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">overwrite the default expand for continuous scales</span>
+<span style="color: #daa520;">scale_y_tree</span> <span style="color: #a2cd5a;">&lt;-</span> <span style="color: #8f62a6;">function</span>(expand=expand_scale(0, 0.6), ...){
+    scale_y_continuous(expand=expand, ...)
+}
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">get the range of the ggtree y-axis data</span>
+<span style="color: #daa520;">tree_ylim</span> <span style="color: #a2cd5a;">&lt;-</span> <span style="color: #8f62a6;">function</span>(ggtree){
+  <span style="color: #8f62a6;">if</span>(!inherits(ggtree, <span style="color: #deb887;">"ggtree"</span>))
+    <span style="color: #8f62a6;">stop</span>(<span style="color: #deb887;">"not a ggtree object"</span>)
+  range(ggtree$data$y)
+}
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">plot data next to a ggtree aligned by shared labels</span>
+<span style="color: #daa520;">ggtreeplot</span> <span style="color: #a2cd5a;">&lt;-</span> <span style="color: #8f62a6;">function</span>(ggtree, data = <span style="color: #98f5ff;">NULL</span>, mapping = aes(), flip=<span style="color: #98f5ff;">FALSE</span>,
+     expand_limits=expand_scale(0,.6), ...){
+  
+  <span style="color: #8f62a6;">if</span>(!inherits(ggtree, <span style="color: #deb887;">"ggtree"</span>))
+    <span style="color: #8f62a6;">stop</span>(<span style="color: #deb887;">"not a ggtree object"</span>)
+
+  <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">match the tree limits</span>
+  limits <span style="color: #a2cd5a;">&lt;-</span> tree_ylim(ggtree)
+  limits[1] <span style="color: #a2cd5a;">&lt;-</span> limits[1] + (limits[1] * expand_limits[1]) - expand_limits[2]
+  limits[2] <span style="color: #a2cd5a;">&lt;-</span> limits[2] + (limits[2] * expand_limits[3]) + expand_limits[4]
+  
+  <span style="color: #8f62a6;">if</span>(flip){
+    mapping <span style="color: #a2cd5a;">&lt;-</span> modifyList(aes_(x=~x), mapping)
+    data <span style="color: #a2cd5a;">&lt;-</span> mutate(data, x=tree_y(ggtree, data))
+    gg <span style="color: #a2cd5a;">&lt;-</span> ggplot(data=data, mapping = mapping, ...) +
+      scale_x_continuous(limits=limits, expand=c(0,0))
+  }<span style="color: #8f62a6;">else</span>{
+    mapping <span style="color: #a2cd5a;">&lt;-</span> modifyList(aes_(y=~y), mapping)
+    data <span style="color: #a2cd5a;">&lt;-</span> mutate(data, y=tree_y(ggtree, data))
+    gg <span style="color: #a2cd5a;">&lt;-</span> ggplot(data=data, mapping = mapping, ...) +
+      scale_y_continuous(limits=limits, expand=c(0,0))
+  }
+  gg
+}
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">get rid of superfluous axis - this works after coord_flip, so it also works</span>
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">for the rotated histogram</span>
+<span style="color: #daa520;">no_y_axis</span> <span style="color: #a2cd5a;">&lt;-</span> <span style="color: #8f62a6;">function</span> () 
+  theme(axis.line.y = element_blank(), 
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank())
+</pre>
+</div>
+
+<p>
+Now we can plot our tree and the data side by side using our new functions. We
+plot the tree as before but add the fixed y scale. For the data, we replace the
+<code>ggplot()</code> call with the <code>ggtreeplot()</code> call. Setting the y-aesthetic (or x in
+case of flipped plots) is no longer necessary. <code>ggplotree()</code> assumes that it
+should point to the coordinates we got from matching the labels from the data to
+the tree.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R">gg_tr <span style="color: #a2cd5a;">&lt;-</span> ggtree(tr) + geom_tiplab(align=<span style="color: #98f5ff;">TRUE</span>) +
+  scale_x_continuous(expand=expand_scale(0.2)) + <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">make more room for the labels</span>
+  scale_y_tree()
+gg_hist <span style="color: #a2cd5a;">&lt;-</span> ggtreeplot(gg_tr, df1, aes(y=value), flip=<span style="color: #98f5ff;">TRUE</span>) +
+  geom_col(aes(fill=substr(label, 1, 1))) + no_legend() +
+  coord_flip() + no_y_axis()
+gg_heat <span style="color: #a2cd5a;">&lt;-</span> ggtreeplot(gg_tr, df2, aes(x=category)) + geom_tile(aes(fill=value)) +
+  scale_fill_gradient2() + no_legend() + no_y_axis() 
+
+gg_tr + gg_hist + gg_heat + plot_annotation(tag_levels=<span style="color: #deb887;">"A"</span>)
+
+ggsave(<span style="color: #deb887;">"img/ggtree-composite-3.png"</span>, type=<span style="color: #deb887;">'cairo'</span>, width=8, height=4)
+</pre>
+</div>
+
+
+<div class="figure">
+<p><img src="img/ggtree-composite-3.png" alt="ggtree-composite-3.png" />
+</p>
+</div>
+
+<p>
+Et voilà! A tree and two beautiful plots, side by side, and perfectly
+aligned. The grammar for this final plot is pretty much identical to what we
+used for the initial unaligned ggtree/ggplots. This makes it very easy to go
+from a set of generic plots to this composite plot. At the same time, we retain
+the level modularity and customizability that we had with the original
+ggplots. This, in my opinion, is what makes this approach powerful.
+</p>
+
+                </div>
+            </section>
+
+            <!-- Email subscribe form at the bottom of the page -->
+            
+
+            <footer class="post-full-footer">
+                <!-- Everything inside the #author tags pulls data from the author -->
+                <!-- #author-->
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                <!-- /author  -->
+            </footer>
+
+            <!-- If you use Disqus comments, just uncomment this block.
+            The only thing you need to change is "test-apkdzgmqhj" - which
+            should be replaced with your own Disqus site-id. -->
+            
+
+        </article>
+
+    </div>
+</main>
+
+<!-- Links to Previous/Next posts -->
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            
+
+            <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
+            
+
+            <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
+            
+                
+    <article class="post-card post-template">
+        
+            <a class="post-card-image-link" href="/blogging-with-emacs-org-mode-and-jekyll">
+                <div class="post-card-image" style="background-image: url(/img/big-island-sunset.jpg)"></div>
+            </a>
+        
+        <div class="post-card-content">
+            <a class="post-card-content-link" href="/blogging-with-emacs-org-mode-and-jekyll">
+                <header class="post-card-header">
+                    
+
+                    <h2 class="post-card-title">I'm blogging - using Emacs Org-Mode and Jekyll</h2>
+                </header>
+                <section class="post-card-excerpt">
+                    <p>I've been thinking about getting my own blog up for, well, more than a while now, and guess what, I finally made it happen! This is is my first post, and it will</p>
+                </section>
+            </a>
+            <footer class="post-card-meta">
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+            </footer>
+        </div>
+    </article>
+
+            
+
+        </div>
+    </div>
+</aside>
+
+<!-- Floating header which appears on-scroll, included from includes/floating-header.hbs -->
+<div class="floating-header">
+    <div class="floating-header-logo">
+        <a href="http://localhost:4000/">
+            
+            <span>thacklog</span>
+        </a>
+    </div>
+    <span class="floating-header-divider">&mdash;</span>
+    <div class="floating-header-title">Plotting a ggtree and ggplots side by side</div>
+    <div class="floating-header-share">
+        <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
+</svg>
+</div>
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Plotting+a+ggtree+and+ggplots+side+by+side&amp;url=https://thackl.github.ioggtree-composite-plots"
+            onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
+
+        </a>
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thackl.github.ioggtree-composite-plots"
+            onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
+
+        </a>
+    </div>
+    <progress class="progress" value="0">
+        <div class="progress-container">
+            <span class="progress-bar"></span>
+        </div>
+    </progress>
+</div>
+
+
+<!-- /post -->
+
+<!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs -->
+
+
+        <!-- Previous/next page links - displayed on every page -->
+        
+
+        <!-- The footer at the very bottom of the screen -->
+        <footer class="site-footer outer">
+            <div class="site-footer-content inner">
+                <section class="copyright"><a href="http://localhost:4000/">thacklog</a> &copy; 2018</section>
+                <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
+                    <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
+                    <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>
+                <nav class="site-footer-nav">
+                    <a href="/">Latest Posts</a>
+                    
+                    <a href="https://twitter.com/th4ckl" target="_blank" rel="noopener">Twitter</a>
+                </nav>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- The big email subscribe modal content -->
+    
+
+    <!-- highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-abap.min.js"></script>
+    <script>$(document).ready(function() {
+      $('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+      });
+    });</script>
+
+    <!-- jQuery + Fitvids, which makes all video embeds responsive -->
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="https://demo.ghost.io/assets/js/jquery.fitvids.js?v=724281a32e"></script>
+
+
+    <!-- Paginator increased to "infinit" in _config.yml -->
+    <!-- if paginator.posts  -->
+    <!-- <script>
+        var maxPages = parseInt('');
+    </script>
+    <script src="/assets/js/infinitescroll.js"></script> -->
+    <!-- /endif -->
+
+    
+
+
+    <!-- Add Google Analytics  -->
+    <!-- Google Analytics Tracking code -->
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'false', 'auto');
+  ga('send', 'pageview');
+
+ </script>
+
+
+    <!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already loaded. -->
+    
+        <script>
+
+// NOTE: Scroll performance is poor in Safari
+// - this appears to be due to the events firing much more slowly in Safari.
+//   Dropping the scroll event and using only a raf loop results in smoother
+//   scrolling but continuous processing even when not scrolling
+$(document).ready(function () {
+    // Start fitVids
+    var $postContent = $(".post-full-content");
+    $postContent.fitVids();
+    // End fitVids
+
+    var progressBar = document.querySelector('progress');
+    var header = document.querySelector('.floating-header');
+    var title = document.querySelector('.post-full-title');
+
+    var lastScrollY = window.scrollY;
+    var lastWindowHeight = window.innerHeight;
+    var lastDocumentHeight = $(document).height();
+    var ticking = false;
+
+    function onScroll() {
+        lastScrollY = window.scrollY;
+        requestTick();
+    }
+
+    function onResize() {
+        lastWindowHeight = window.innerHeight;
+        lastDocumentHeight = $(document).height();
+        requestTick();
+    }
+
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(update);
+        }
+        ticking = true;
+    }
+
+    function update() {
+        var trigger = title.getBoundingClientRect().top + window.scrollY;
+        var triggerOffset = title.offsetHeight + 35;
+        var progressMax = lastDocumentHeight - lastWindowHeight;
+
+        // show/hide floating header
+        if (lastScrollY >= trigger + triggerOffset) {
+            header.classList.add('floating-active');
+        } else {
+            header.classList.remove('floating-active');
+        }
+
+        progressBar.setAttribute('max', progressMax);
+        progressBar.setAttribute('value', lastScrollY);
+
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', onScroll, {passive: true});
+    window.addEventListener('resize', onResize, false);
+
+    update();
+});
+</script>
+
+    
+
+    <!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the closing body tag -->
+    <!-- ghost_foot -->
+
+</body>
+</html>
