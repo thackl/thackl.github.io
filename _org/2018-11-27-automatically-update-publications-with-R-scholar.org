@@ -1,0 +1,69 @@
+#+BEGIN_HTML
+---
+layout: post
+class: post-template
+title: "Automatically update your publication list using R scholar"
+author: thackl
+cover: img/google-scholar-books.png
+---
+#+END_HTML
+
+I really dislike tedious tasks like updating my publication list on my
+website. So here is a very short script that does the job for me. It uses the R
+library [[https://CRAN.R-project.org/package%3Dscholar][scholar]] to pull my publications from my google scholar profile. I then
+use some quick & dirty string parsing to convert that data into a html
+table. I'm sure there are a tons of more elegant ways out there, but this
+worked, and only took me minutes to set up.
+
+#+BEGIN_SRC R
+library(scholar)
+library(tidyverse)
+library(glue)
+
+# escape some special chars, german umlauts, ...
+char2html <- function(x){
+  dictionary <- data.frame(
+    symbol = c("ä","ö","ü","Ä", "Ö", "Ü", "ß"),
+    html = c("&auml;","&ouml;", "&uuml;","&Auml;",
+             "&Ouml;", "&Uuml;","&szlig;"))
+  for(i in 1:dim(dictionary)[1]){
+    x <- gsub(dictionary$symbol[i],dictionary$html[i],x)
+  }
+  x
+}
+
+# my google scholar user id from my profile url
+# https://scholar.google.com/citations?user=b8bWNkUAAAAJ&hl=en
+thackl <- "b8bWNkUAAAAJ"
+
+# pull from google
+html_1 <- get_publications(thackl)
+
+# convert to htlm table - the ugly way ;)
+html_2 <- html_1 %>%
+  as_tibble %>% arrange(desc(year)) %>%
+  mutate(
+#    author=str_replace_all(author, " (\\S) ", "\\1 "),
+    author=str_replace_all(author, "([A-Z]) ([A-Z]) ", "\\1\\2 "),
+    author=str_replace_all(author, ", \\.\\.\\.", " et al."),
+    author=str_replace_all(author, "T Hackl", "<b>T Hackl</b>") # make my name fat
+  ) %>% split(.$year) %>%
+    map(function(x){
+      x <- x %>%
+        glue_data('<tr><td width="100%">{author} ({year}) <a href="https://scholar.google.com/scholar?oi=bibs&cluster={cid}&btnI=1&hl=en">{title}</a>, {journal}, {number}</td></tr>') %>%
+        str_replace_all("(, )+</p>", "</p>") %>%
+        char2html()
+      x <- c('<table class="publication-table" border="10px solid blue" cellspacing="0" cellpadding="6" rules="", frame=""><tbody>', x, '</tbody></table>')
+      return(x);
+    }) %>% rev
+
+html_3 <- map2(names(html_2) %>% paste0("<h3>", ., "</h3>"), html_2, c) %>% unlist
+
+html_4 <- c(
+  paste0('<p style="text-align: right; margin-top: -40px;"><small>Last updated <i>',
+         format(Sys.Date(), format="%B %d, %Y"),
+         '&ndash; Pulled automatically from my <a href="https://scholar.google.com/citations?hl=en&user=b8bWNkUAAAAJ">Google Scholar profile</a>. See <a href="{{ site.url }}{% post_url 2018-11-27-automatically-update-publications-with-R-scholar %}">this post</a> for how it works.</small></p>'), html_3)
+
+# write the html list to a file
+writeLines(html_4, "../_includes/publications.html")
+#+END_SRC

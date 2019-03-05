@@ -1,4 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-03-04T21:02:00-05:00</updated><id>/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">Plotting a ggtree and ggplots side by side</title><link href="/ggtree-composite-plots" rel="alternate" type="text/html" title="Plotting a ggtree and ggplots side by side" /><published>2018-10-08T00:00:00-04:00</published><updated>2018-10-08T00:00:00-04:00</updated><id>/ggtree-composite-plots</id><content type="html" xml:base="/ggtree-composite-plots">&lt;p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-03-04T23:16:52-05:00</updated><id>/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">Automatically update your publication list using R scholar</title><link href="/automatically-update-publications-with-R-scholar" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar" /><published>2018-11-27T00:00:00-05:00</published><updated>2018-11-27T00:00:00-05:00</updated><id>/automatically-update-publications-with-R-scholar</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar">&lt;p&gt;
+I really dislike tedious tasks like updating my publication list on my
+website. So here is a very short script that does the job for me. It uses the R
+library &lt;a href=&quot;https://CRAN.R-project.org/package=scholar&quot;&gt;scholar&lt;/a&gt; to pull my publications from my google scholar profile. I then
+use some quick &amp;amp; dirty string parsing to convert that data into a html
+table. I'm sure there are a tons of more elegant ways out there, but this
+worked, and only took me minutes to set up.
+&lt;/p&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-R&quot;&gt;&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(scholar)
+&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(tidyverse)
+&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(glue)
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;escape some special chars, german umlauts, ...&lt;/span&gt;
+&lt;span style=&quot;color: #daa520;&quot;&gt;char2html&lt;/span&gt; &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt;(x){
+  dictionary &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; data.frame(
+    symbol = c(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;#228;&quot;&lt;/span&gt;,&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;#246;&quot;&lt;/span&gt;,&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;#252;&quot;&lt;/span&gt;,&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;#196;&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;#214;&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;#220;&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;#223;&quot;&lt;/span&gt;),
+    html = c(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;amp;auml;&quot;&lt;/span&gt;,&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;amp;ouml;&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;amp;uuml;&quot;&lt;/span&gt;,&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;amp;Auml;&quot;&lt;/span&gt;,
+             &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;amp;Ouml;&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;amp;Uuml;&quot;&lt;/span&gt;,&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;amp;szlig;&quot;&lt;/span&gt;))
+  &lt;span style=&quot;color: #8f62a6;&quot;&gt;for&lt;/span&gt;(i &lt;span style=&quot;color: #8f62a6;&quot;&gt;in&lt;/span&gt; 1:dim(dictionary)[1]){
+    x &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; gsub(dictionary$symbol[i],dictionary$html[i],x)
+  }
+  x
+}
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;my google scholar user id from my profile url&lt;/span&gt;
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;https://scholar.google.com/citations?user=b8bWNkUAAAAJ&amp;amp;hl=en&lt;/span&gt;
+thackl &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;b8bWNkUAAAAJ&quot;&lt;/span&gt;
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;pull from google&lt;/span&gt;
+html_1 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; get_publications(thackl)
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;convert to htlm table - the ugly way ;)&lt;/span&gt;
+html_2 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; html_1 %&amp;gt;%
+  as_tibble %&amp;gt;% arrange(desc(year)) %&amp;gt;%
+  mutate(
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;#    &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;author=str_replace_all(author, &quot; (\\S) &quot;, &quot;\\1 &quot;),&lt;/span&gt;
+    author=str_replace_all(author, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;([A-Z]) ([A-Z]) &quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;\\1\\2 &quot;&lt;/span&gt;),
+    author=str_replace_all(author, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;, \\.\\.\\.&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot; et al.&quot;&lt;/span&gt;),
+    author=str_replace_all(author, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;T Hackl&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;lt;b&amp;gt;T Hackl&amp;lt;/b&amp;gt;&quot;&lt;/span&gt;) &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;make my name fat&lt;/span&gt;
+  ) %&amp;gt;% split(.$year) %&amp;gt;%
+    map(&lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt;(x){
+      x &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; x %&amp;gt;%
+        glue_data(&lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;lt;tr&amp;gt;&amp;lt;td width=&quot;100%&quot;&amp;gt;{author} ({year}) &amp;lt;a href=&quot;https://scholar.google.com/scholar?oi=bibs&amp;amp;cluster={cid}&amp;amp;btnI=1&amp;amp;hl=en&quot;&amp;gt;{title}&amp;lt;/a&amp;gt;, {journal}, {number}&amp;lt;/td&amp;gt;&amp;lt;/tr&amp;gt;'&lt;/span&gt;) %&amp;gt;%
+        str_replace_all(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;(, )+&amp;lt;/p&amp;gt;&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;lt;/p&amp;gt;&quot;&lt;/span&gt;) %&amp;gt;%
+        char2html()
+      x &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; c(&lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;lt;table class=&quot;publication-table&quot; border=&quot;10px solid blue&quot; cellspacing=&quot;0&quot; cellpadding=&quot;6&quot; rules=&quot;&quot;, frame=&quot;&quot;&amp;gt;&amp;lt;tbody&amp;gt;'&lt;/span&gt;, x, &lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;lt;/tbody&amp;gt;&amp;lt;/table&amp;gt;'&lt;/span&gt;)
+      &lt;span style=&quot;color: #8f62a6;&quot;&gt;return&lt;/span&gt;(x);
+    }) %&amp;gt;% rev
+
+html_3 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; map2(names(html_2) %&amp;gt;% paste0(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;lt;h3&amp;gt;&quot;&lt;/span&gt;, ., &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;&amp;lt;/h3&amp;gt;&quot;&lt;/span&gt;), html_2, c) %&amp;gt;% unlist
+
+html_4 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; c(
+  paste0(&lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;lt;p style=&quot;text-align: right; margin-top: -40px;&quot;&amp;gt;&amp;lt;small&amp;gt;Last updated &amp;lt;i&amp;gt;'&lt;/span&gt;,
+         format(Sys.Date(), format=&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;%B %d, %Y&quot;&lt;/span&gt;),
+         &lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;amp;ndash; Pulled automatically from my &amp;lt;a href=&quot;https://scholar.google.com/citations?hl=en&amp;amp;user=b8bWNkUAAAAJ&quot;&amp;gt;Google Scholar profile&amp;lt;/a&amp;gt;. See &amp;lt;a href=&quot;/automatically-update-publications-with-R-scholar&quot;&amp;gt;this post&amp;lt;/a&amp;gt; for how it works.&amp;lt;/small&amp;gt;&amp;lt;/p&amp;gt;'&lt;/span&gt;), html_3)
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;write the html list to a file&lt;/span&gt;
+writeLines(html_4, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;../_includes/publications.html&quot;&lt;/span&gt;)
+&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">I really dislike tedious tasks like updating my publication list on my website. So here is a very short script that does the job for me. It uses the R library scholar to pull my publications from my google scholar profile. I then use some quick &amp;amp; dirty string parsing to convert that data into a html table. I'm sure there are a tons of more elegant ways out there, but this worked, and only took me minutes to set up.</summary></entry><entry><title type="html">Plotting a ggtree and ggplots side by side</title><link href="/ggtree-composite-plots" rel="alternate" type="text/html" title="Plotting a ggtree and ggplots side by side" /><published>2018-10-08T00:00:00-04:00</published><updated>2018-10-08T00:00:00-04:00</updated><id>/ggtree-composite-plots</id><content type="html" xml:base="/ggtree-composite-plots">&lt;p&gt;
 Plotting phylogenies and associated data side by side is a good way to explore
 evolutionary patterns in your data.  In this post I will describe my approach
 for creating such plots in R using &lt;a href=&quot;https://ggplot2.tidyverse.org/index.html&quot;&gt;ggplot&lt;/a&gt;, &lt;a href=&quot;https://guangchuangyu.github.io/software/ggtree/&quot;&gt;ggtree&lt;/a&gt;, and &lt;a href=&quot;https://github.com/thomasp85/patchwork&quot;&gt;patchwork&lt;/a&gt;.

@@ -1,0 +1,71 @@
+---
+layout: post
+class: post-template
+title: "Automatically update your publication list using R scholar"
+author: thackl
+cover: img/google-scholar-books.png
+---
+
+<p>
+I really dislike tedious tasks like updating my publication list on my
+website. So here is a very short script that does the job for me. It uses the R
+library <a href="https://CRAN.R-project.org/package=scholar">scholar</a> to pull my publications from my google scholar profile. I then
+use some quick &amp; dirty string parsing to convert that data into a html
+table. I'm sure there are a tons of more elegant ways out there, but this
+worked, and only took me minutes to set up.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #a2cd5a;">library</span>(scholar)
+<span style="color: #a2cd5a;">library</span>(tidyverse)
+<span style="color: #a2cd5a;">library</span>(glue)
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">escape some special chars, german umlauts, ...</span>
+<span style="color: #daa520;">char2html</span> <span style="color: #a2cd5a;">&lt;-</span> <span style="color: #8f62a6;">function</span>(x){
+  dictionary <span style="color: #a2cd5a;">&lt;-</span> data.frame(
+    symbol = c(<span style="color: #deb887;">"&#228;"</span>,<span style="color: #deb887;">"&#246;"</span>,<span style="color: #deb887;">"&#252;"</span>,<span style="color: #deb887;">"&#196;"</span>, <span style="color: #deb887;">"&#214;"</span>, <span style="color: #deb887;">"&#220;"</span>, <span style="color: #deb887;">"&#223;"</span>),
+    html = c(<span style="color: #deb887;">"&amp;auml;"</span>,<span style="color: #deb887;">"&amp;ouml;"</span>, <span style="color: #deb887;">"&amp;uuml;"</span>,<span style="color: #deb887;">"&amp;Auml;"</span>,
+             <span style="color: #deb887;">"&amp;Ouml;"</span>, <span style="color: #deb887;">"&amp;Uuml;"</span>,<span style="color: #deb887;">"&amp;szlig;"</span>))
+  <span style="color: #8f62a6;">for</span>(i <span style="color: #8f62a6;">in</span> 1:dim(dictionary)[1]){
+    x <span style="color: #a2cd5a;">&lt;-</span> gsub(dictionary$symbol[i],dictionary$html[i],x)
+  }
+  x
+}
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">my google scholar user id from my profile url</span>
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">https://scholar.google.com/citations?user=b8bWNkUAAAAJ&amp;hl=en</span>
+thackl <span style="color: #a2cd5a;">&lt;-</span> <span style="color: #deb887;">"b8bWNkUAAAAJ"</span>
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">pull from google</span>
+html_1 <span style="color: #a2cd5a;">&lt;-</span> get_publications(thackl)
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">convert to htlm table - the ugly way ;)</span>
+html_2 <span style="color: #a2cd5a;">&lt;-</span> html_1 %&gt;%
+  as_tibble %&gt;% arrange(desc(year)) %&gt;%
+  mutate(
+<span style="color: #7f7f7f;">#    </span><span style="color: #7f7f7f;">author=str_replace_all(author, " (\\S) ", "\\1 "),</span>
+    author=str_replace_all(author, <span style="color: #deb887;">"([A-Z]) ([A-Z]) "</span>, <span style="color: #deb887;">"\\1\\2 "</span>),
+    author=str_replace_all(author, <span style="color: #deb887;">", \\.\\.\\."</span>, <span style="color: #deb887;">" et al."</span>),
+    author=str_replace_all(author, <span style="color: #deb887;">"T Hackl"</span>, <span style="color: #deb887;">"&lt;b&gt;T Hackl&lt;/b&gt;"</span>) <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">make my name fat</span>
+  ) %&gt;% split(.$year) %&gt;%
+    map(<span style="color: #8f62a6;">function</span>(x){
+      x <span style="color: #a2cd5a;">&lt;-</span> x %&gt;%
+        glue_data(<span style="color: #deb887;">'&lt;tr&gt;&lt;td width="100%"&gt;{author} ({year}) &lt;a href="https://scholar.google.com/scholar?oi=bibs&amp;cluster={cid}&amp;btnI=1&amp;hl=en"&gt;{title}&lt;/a&gt;, {journal}, {number}&lt;/td&gt;&lt;/tr&gt;'</span>) %&gt;%
+        str_replace_all(<span style="color: #deb887;">"(, )+&lt;/p&gt;"</span>, <span style="color: #deb887;">"&lt;/p&gt;"</span>) %&gt;%
+        char2html()
+      x <span style="color: #a2cd5a;">&lt;-</span> c(<span style="color: #deb887;">'&lt;table class="publication-table" border="10px solid blue" cellspacing="0" cellpadding="6" rules="", frame=""&gt;&lt;tbody&gt;'</span>, x, <span style="color: #deb887;">'&lt;/tbody&gt;&lt;/table&gt;'</span>)
+      <span style="color: #8f62a6;">return</span>(x);
+    }) %&gt;% rev
+
+html_3 <span style="color: #a2cd5a;">&lt;-</span> map2(names(html_2) %&gt;% paste0(<span style="color: #deb887;">"&lt;h3&gt;"</span>, ., <span style="color: #deb887;">"&lt;/h3&gt;"</span>), html_2, c) %&gt;% unlist
+
+html_4 <span style="color: #a2cd5a;">&lt;-</span> c(
+  paste0(<span style="color: #deb887;">'&lt;p style="text-align: right; margin-top: -40px;"&gt;&lt;small&gt;Last updated &lt;i&gt;'</span>,
+         format(Sys.Date(), format=<span style="color: #deb887;">"%B %d, %Y"</span>),
+         <span style="color: #deb887;">'&amp;ndash; Pulled automatically from my &lt;a href="https://scholar.google.com/citations?hl=en&amp;user=b8bWNkUAAAAJ"&gt;Google Scholar profile&lt;/a&gt;. See &lt;a href="{{ site.url }}{% post_url 2018-11-27-automatically-update-publications-with-R-scholar %}"&gt;this post&lt;/a&gt; for how it works.&lt;/small&gt;&lt;/p&gt;'</span>), html_3)
+
+<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">write the html list to a file</span>
+writeLines(html_4, <span style="color: #deb887;">"../_includes/publications.html"</span>)
+</pre>
+</div>

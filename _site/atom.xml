@@ -8,6 +8,28 @@
     
       
       <item>
+        <title>Automatically update your publication list using R scholar</title>
+        
+          <description>&lt;p&gt;
+I really dislike tedious tasks like updating my publication list on my
+website. So here is a very short script that does the job for me. It uses the R
+library &lt;a href=&quot;https://CRAN.R-project.org/package=scholar&quot;&gt;scholar&lt;/a&gt; to pull my publications from my google scholar profile. I then
+use some quick &amp;amp; dirty string parsing to convert that data into a html
+table. I'm sure there are a tons of more elegant ways out there, but this
+worked, and only took me minutes to set up.
+&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 27 Nov 2018 00:00:00 -0500</pubDate>
+        <link>
+        /automatically-update-publications-with-R-scholar</link>
+        <guid isPermaLink="true">/automatically-update-publications-with-R-scholar</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Plotting a ggtree and ggplots side by side</title>
         
           <description>&lt;p&gt;
