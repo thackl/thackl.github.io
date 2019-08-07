@@ -1,0 +1,11 @@
+#+BEGIN_HTML
+---
+layout: post
+class: post-template
+title: "CATCHY TITLE"
+author: thackl
+cover: img/IMG.png
+---
+#+END_HTML
+
+Write about cool stuff here...
