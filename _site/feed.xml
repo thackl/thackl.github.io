@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-09-17T12:58:24-04:00</updated><id>/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">Automatically update your publication list using R scholar II - get a PDF</title><link href="/pull-google-scholar-publications-as-pdf-with-R" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar II - get a PDF" /><published>2019-09-17T00:00:00-04:00</published><updated>2019-09-17T00:00:00-04:00</updated><id>/pull-google-scholar-publications-as-pdf-with-R</id><content type="html" xml:base="/pull-google-scholar-publications-as-pdf-with-R">&lt;p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-09-17T13:17:59-04:00</updated><id>/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">Automatically update your publication list using R scholar II - get a PDF</title><link href="/automatically-update-publications-with-R-scholar-II-get-pdf" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar II - get a PDF" /><published>2019-09-17T00:00:00-04:00</published><updated>2019-09-17T00:00:00-04:00</updated><id>/automatically-update-publications-with-R-scholar-II-get-pdf</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar-II-get-pdf">&lt;p&gt;
 &lt;a href=&quot;http://alecri.github.io/&quot;&gt;Alessio&lt;/a&gt; apparently read my blog post on &lt;a href=&quot;https://thackl.github.io/automatically-update-publications-with-R-scholar&quot;&gt;how to automatically update your
 publication list using R and google scholar&lt;/a&gt;. He contacted me wondering if there
 is also a solution to get a PDF. Good question, thanks!
@@ -21,7 +21,7 @@ single command. The only requirement, you need to have Google Chrome installed.
 &lt;/p&gt;
 
 &lt;p&gt;
-Here is my &lt;a href=&quot;file:///asset/publications.pdf&quot;&gt;publication list as PDF&lt;/a&gt;.
+Here is my &lt;a href=&quot;https://thackl.github.io/assets/publications.pdf&quot;&gt;publication list as PDF&lt;/a&gt;.
 &lt;/p&gt;
 
 &lt;div class=&quot;org-src-container&quot;&gt;

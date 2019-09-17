@@ -24,7 +24,7 @@ function =chrome_print= of the R package [[https://github.com/rstudio/pagedown][
 you pretty much get what you already have on the HTML page in your PDF - with a
 single command. The only requirement, you need to have Google Chrome installed.
 
-Here is my [[/asset/publications.pdf][publication list as PDF]].
+Here is my [[https://thackl.github.io/assets/publications.pdf][publication list as PDF]].
 
 #+BEGIN_SRC R
 library(pagedown)
