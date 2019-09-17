@@ -8,6 +8,44 @@
     
       
       <item>
+        <title>Automatically update your publication list using R scholar II - get a PDF</title>
+        
+          <description>&lt;p&gt;
+&lt;a href=&quot;http://alecri.github.io/&quot;&gt;Alessio&lt;/a&gt; apparently read my blog post on &lt;a href=&quot;https://thackl.github.io/automatically-update-publications-with-R-scholar&quot;&gt;how to automatically update your
+publication list using R and google scholar&lt;/a&gt;. He contacted me wondering if there
+is also a solution to get a PDF. Good question, thanks!
+&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 17 Sep 2019 00:00:00 -0400</pubDate>
+        <link>
+        /pull-google-scholar-publications-as-pdf-with-R</link>
+        <guid isPermaLink="true">/pull-google-scholar-publications-as-pdf-with-R</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Get BUSCO gene descriptions from OrthoDB</title>
+        
+          <description>&lt;p&gt;
+&lt;a href=&quot;https://busco.ezlab.org/&quot;&gt;BUSCO&lt;/a&gt; lacks descriptions of the ortholog groups it searches for. You can query
+&lt;a href=&quot;https://www.orthodb.org/&quot;&gt;OrthoDB&lt;/a&gt; via its API to map BUSCO IDs and pull the information. Below is a short
+R snippet to automate this and produce a nice table.
+&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Wed, 07 Aug 2019 00:00:00 -0400</pubDate>
+        <link>
+        /BUSCO-gene-descriptions</link>
+        <guid isPermaLink="true">/BUSCO-gene-descriptions</guid>
+      </item>
+      
+    
+      
+      <item>
         <title>Automatically update your publication list using R scholar</title>
         
           <description>&lt;p&gt;

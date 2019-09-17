@@ -1,4 +1,114 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-03-04T23:16:52-05:00</updated><id>/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">Automatically update your publication list using R scholar</title><link href="/automatically-update-publications-with-R-scholar" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar" /><published>2018-11-27T00:00:00-05:00</published><updated>2018-11-27T00:00:00-05:00</updated><id>/automatically-update-publications-with-R-scholar</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar">&lt;p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-09-17T12:58:24-04:00</updated><id>/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">Automatically update your publication list using R scholar II - get a PDF</title><link href="/pull-google-scholar-publications-as-pdf-with-R" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar II - get a PDF" /><published>2019-09-17T00:00:00-04:00</published><updated>2019-09-17T00:00:00-04:00</updated><id>/pull-google-scholar-publications-as-pdf-with-R</id><content type="html" xml:base="/pull-google-scholar-publications-as-pdf-with-R">&lt;p&gt;
+&lt;a href=&quot;http://alecri.github.io/&quot;&gt;Alessio&lt;/a&gt; apparently read my blog post on &lt;a href=&quot;https://thackl.github.io/automatically-update-publications-with-R-scholar&quot;&gt;how to automatically update your
+publication list using R and google scholar&lt;/a&gt;. He contacted me wondering if there
+is also a solution to get a PDF. Good question, thanks!
+&lt;/p&gt;
+
+&lt;p&gt;
+There are probably a few ways to get a PDF. Fancy ones might include the use of
+&lt;a href=&quot;https://yihui.name/knitr/&quot;&gt;knitr&lt;/a&gt; or the great &lt;a href=&quot;https://pandoc.org/&quot;&gt;pandoc&lt;/a&gt; converter, likely involving a intermediate TEX file or
+so. Here, however, I tried to aim for a fast and straight-forward workaround.
+&lt;/p&gt;
+
+&lt;p&gt;
+Let us assume we already have a HTML version of our publication list, for
+example, obtained as described in the post mentioned above. Converting HTML to
+PDF can be a bit of a nightmare, particularly if you want to maintain the CSS
+style of your website. What works for me is to use the Google Chrome API
+function &lt;code&gt;chrome_print&lt;/code&gt; of the R package &lt;a href=&quot;https://github.com/rstudio/pagedown&quot;&gt;pagedown&lt;/a&gt;. It is not very flexible, but
+you pretty much get what you already have on the HTML page in your PDF - with a
+single command. The only requirement, you need to have Google Chrome installed.
+&lt;/p&gt;
+
+&lt;p&gt;
+Here is my &lt;a href=&quot;file:///asset/publications.pdf&quot;&gt;publication list as PDF&lt;/a&gt;.
+&lt;/p&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-R&quot;&gt;&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(pagedown)
+
+chrome_print(
+  &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;link to my publication list w/o header/footer in html&lt;/span&gt;
+  &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;https://thackl.github.io/publications-clean&quot;&lt;/span&gt;,
+  &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;the pdf to generate&lt;/span&gt;
+  &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;publications.pdf&quot;&lt;/span&gt;
+)
+&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">Alessio apparently read my blog post on how to automatically update your publication list using R and google scholar. He contacted me wondering if there is also a solution to get a PDF. Good question, thanks!</summary></entry><entry><title type="html">Get BUSCO gene descriptions from OrthoDB</title><link href="/BUSCO-gene-descriptions" rel="alternate" type="text/html" title="Get BUSCO gene descriptions from OrthoDB" /><published>2019-08-07T00:00:00-04:00</published><updated>2019-08-07T00:00:00-04:00</updated><id>/BUSCO-gene-descriptions</id><content type="html" xml:base="/BUSCO-gene-descriptions">&lt;p&gt;
+&lt;a href=&quot;https://busco.ezlab.org/&quot;&gt;BUSCO&lt;/a&gt; lacks descriptions of the ortholog groups it searches for. You can query
+&lt;a href=&quot;https://www.orthodb.org/&quot;&gt;OrthoDB&lt;/a&gt; via its API to map BUSCO IDs and pull the information. Below is a short
+R snippet to automate this and produce a nice table.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;https://busco.ezlab.org/&quot;&gt;BUSCO&lt;/a&gt; is a great tool to assess the completeness of eukaryotic genome
+assemblies. It let's you search your assemblies for a sets of conserved
+near-universal single copy orthologs genes, and returns useful statistics on
+their absence and presence in the data set at hand. Because the chosen orthologs
+are ubiquitous, complete assemblies should contain most of these markers. It also
+is a good way for comparing assembly versions - the more complete markers, the
+better. But also the numbers of fragmented and duplicated markers can give you
+useful information about assembly qualities.
+&lt;/p&gt;
+
+&lt;p&gt;
+Recently, I used BUSCO to assess four assemblies of quite similar strains of
+the marine flagellate &lt;i&gt;Cafeteria roenbergensis&lt;/i&gt;. Among other things, I noticed
+that in all strain the same set of BUSCOs was missing. This made me curious, and
+I wondered if this might reflect some interesting biology - certain pathways
+missing, &amp;#x2026; Unfortunately, the output generated by BUSCO does not contain any
+descriptive information about the different gene clusters, just the BUSCO IDs
+for each cluster; apparently a issue that others encountered before, and could
+not really solve (&lt;a href=&quot;https://www.biostars.org/p/182544/&quot;&gt;Get BUSCO gene descriptions - Biostars&lt;/a&gt;).
+&lt;/p&gt;
+
+&lt;p&gt;
+So, here is how I solved it. Most BUSCO data sets are generated from &lt;a href=&quot;https://www.orthodb.org/&quot;&gt;OrthoDB&lt;/a&gt;. If
+you search OrthoDB with BUSCO IDs, you will immediately be forwarded to the
+respective ortho-group entry containing all the metainformation we are
+interested in. Because I want to retrieve metadata for a large number of BUSCO
+IDs, I wrote a small R script that queries the OrthoDB API, and returns a nice
+table with the results.
+&lt;/p&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-R&quot;&gt;&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(tidyverse)
+&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(jsonlite)
+
+busco_ids &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; c(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;EOG093714Q2&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;EOG09370GHP&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;EOG09370OS5&quot;&lt;/span&gt;)
+names(busco_ids) &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; busco_ids &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;so map_df gets .id right&lt;/span&gt;
+
+&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;a tibble of interpro profile associated with each busco_id&lt;/span&gt;
+busco_ipr &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; map_df(busco_ids, .id=&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;busco_id&quot;&lt;/span&gt;,  &lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt;(busco_id){
+  write(busco_id, stderr()) &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;just so we can monitor progress&lt;/span&gt;
+  &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;map the BUSCO ID to OrthoDB group ID&lt;/span&gt;
+  query &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; read_json(paste0(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;https://www.orthodb.org/search?query=&quot;&lt;/span&gt;, busco_id))
+  odb_id &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; query$data[1]
+  &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;get all info on the orthogroup&lt;/span&gt;
+  odb_info &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; read_json(paste0(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;https://www.orthodb.org/group?id=&quot;&lt;/span&gt;, odb_id),
+    simplifyVector = &lt;span style=&quot;color: #98f5ff;&quot;&gt;TRUE&lt;/span&gt;)
+  &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;return the interpro table&lt;/span&gt;
+  odb_info$data$interpro_domains
+})
+
+busco_ipr %&amp;gt;% select(busco_id, description)
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;
+And this is how the table looks like:
+&lt;/p&gt;
+&lt;pre class=&quot;example&quot;&gt;
+     busco_id                                              description
+1 EOG093714Q2                          Mediator complex, subunit Med31
+2 EOG093714Q2       Mediator complex, subunit Med31 domain superfamily
+3 EOG09370GHP                       Reduced growth phenotype protein 1
+4 EOG09370OS5 Ribosomal protein S2, flavodoxin-like domain superfamily
+5 EOG09370OS5                                     Ribosomal protein S2
+6 EOG09370OS5      Ribosomal protein S2, bacteria/mitochondria/plastid
+7 EOG09370OS5                     Ribosomal protein S2, conserved site
+&lt;/pre&gt;</content><author><name>thackl</name></author><summary type="html">BUSCO lacks descriptions of the ortholog groups it searches for. You can query OrthoDB via its API to map BUSCO IDs and pull the information. Below is a short R snippet to automate this and produce a nice table.</summary></entry><entry><title type="html">Automatically update your publication list using R scholar</title><link href="/automatically-update-publications-with-R-scholar" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar" /><published>2018-11-27T00:00:00-05:00</published><updated>2018-11-27T00:00:00-05:00</updated><id>/automatically-update-publications-with-R-scholar</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar">&lt;p&gt;
 I really dislike tedious tasks like updating my publication list on my
 website. So here is a very short script that does the job for me. It uses the R
 library &lt;a href=&quot;https://CRAN.R-project.org/package=scholar&quot;&gt;scholar&lt;/a&gt; to pull my publications from my google scholar profile. I then

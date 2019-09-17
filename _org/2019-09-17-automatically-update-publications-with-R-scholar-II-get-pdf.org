@@ -1,0 +1,38 @@
+#+BEGIN_HTML
+---
+layout: post
+class: post-template
+title: "Automatically update your publication list using R scholar II - get a PDF"
+author: thackl
+cover: img/google-scholar-books-pdf.png
+---
+#+END_HTML
+
+[[http://alecri.github.io/][Alessio]] apparently read my blog post on [[https://thackl.github.io/automatically-update-publications-with-R-scholar][how to automatically update your
+publication list using R and google scholar]]. He contacted me wondering if there
+is also a solution to get a PDF. Good question, thanks!
+
+There are probably a few ways to get a PDF. Fancy ones might include the use of
+[[https://yihui.name/knitr/][knitr]] or the great [[https://pandoc.org/][pandoc]] converter, likely involving a intermediate TEX file or
+so. Here, however, I tried to aim for a fast and straight-forward workaround.
+
+Let us assume we already have a HTML version of our publication list, for
+example, obtained as described in the post mentioned above. Converting HTML to
+PDF can be a bit of a nightmare, particularly if you want to maintain the CSS
+style of your website. What works for me is to use the Google Chrome API
+function =chrome_print= of the R package [[https://github.com/rstudio/pagedown][pagedown]]. It is not very flexible, but
+you pretty much get what you already have on the HTML page in your PDF - with a
+single command. The only requirement, you need to have Google Chrome installed.
+
+Here is my [[/asset/publications.pdf][publication list as PDF]].
+
+#+BEGIN_SRC R
+library(pagedown)
+
+chrome_print(
+  # link to my publication list w/o header/footer in html
+  "https://thackl.github.io/publications-clean",
+  # the pdf to generate
+  "publications.pdf"
+)
+#+END_SRC
