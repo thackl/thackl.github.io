@@ -38,8 +38,6 @@ html_3 <- map2(names(html_2) %>% paste0("<h3>", ., "</h3>"), html_2, c) %>% unli
 
 html_4 <- c(
   paste0('<p style="text-align: right; margin-top: -40px;"><small>Last updated <i>',
-         format(Sys.Date(), format="%B %d, %Y"),
-         '</i>. Pulled automatically from my <a href="https://scholar.google.com/citations?hl=en&user=b8bWNkUAAAAJ">Google Scholar profile</a></small></br>
-See [this post ]({{ site.baseurl }}{% post_url 2018-11-27-automatically-update-publications-with-R-scholar %}) for how it works</p>'), html_3)
+         format(Sys.Date(), format="%B %d, %Y"), '&ndash; Pulled automatically from my <a href="https://scholar.google.com/citations?hl=en&user=b8bWNkUAAAAJ">Google Scholar profile</a>. See <a href="{{ site.url }}{% post_url 2018-11-27-automatically-update-publications-with-R-scholar %}">this post</a> for how it works.</small></p>'), html_3)
 writeLines(html_4, "../_includes/publications.html")
 
