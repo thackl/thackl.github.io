@@ -5,7 +5,7 @@ git add ../_includes/publications.html
 git commit -m 'auto-updated publications.html'
 git push
 
-wait 2
+sleep 2
 
 Rscript google-scholar-pdf.R
 bundle exec jekyll build

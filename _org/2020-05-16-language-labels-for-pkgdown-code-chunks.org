@@ -2,13 +2,13 @@
 ---
 layout: post
 class: post-template
-title: "Add a Language label to code chunks in pgkdown articles"
+title: "Add a language label to code chunks in pkgdown articles"
 author: thackl
 cover: img/pkgdown-code-labels-header.png
 ---
 #+END_HTML
 
-pgkdown nicely renders code chunks in your package's documentation
+pkgdown nicely renders code chunks in your package's documentation
 website. However, if you mix in non-R code snippets in your articles, it is
 difficult to distinguish R code chunks from those written in other
 languages. How nice would it be if each code chunk would have a small label to
