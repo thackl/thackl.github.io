@@ -1,4 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-09-18T07:38:43-04:00</updated><id>http://localhost:4000/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">Automatically update your publication list using R scholar II - get a PDF</title><link href="http://localhost:4000/automatically-update-publications-with-R-scholar-II-get-pdf" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar II - get a PDF" /><published>2019-09-17T00:00:00-04:00</published><updated>2019-09-17T00:00:00-04:00</updated><id>http://localhost:4000/automatically-update-publications-with-R-scholar-II-get-pdf</id><content type="html" xml:base="http://localhost:4000/automatically-update-publications-with-R-scholar-II-get-pdf">&lt;p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-05-16T16:54:52+02:00</updated><id>/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">Add a Language label to code chunks in pgkdown articles</title><link href="/language-labels-for-pkgdown-code-chunks" rel="alternate" type="text/html" title="Add a Language label to code chunks in pgkdown articles" /><published>2020-05-16T00:00:00+02:00</published><updated>2020-05-16T00:00:00+02:00</updated><id>/language-labels-for-pkgdown-code-chunks</id><content type="html" xml:base="/language-labels-for-pkgdown-code-chunks">&lt;p&gt;
+pgkdown nicely renders code chunks in your package's documentation
+website. However, if you mix in non-R code snippets in your articles, it is
+difficult to distinguish R code chunks from those written in other
+languages. How nice would it be if each code chunk would have a small label to
+indicate its content's language.
+&lt;/p&gt;
+
+&lt;p&gt;
+&lt;a href=&quot;https://pkgdown.r-lib.org/&quot;&gt;pkgdown&lt;/a&gt; is super useful for documenting your R packages. It is particularly well
+suited to showcase small code examples. In some of my projects, on top of R code
+chunks, I also provide code examples in other languages such as short Linux
+command line code snippets I used to preprocess data before loading it into R.
+&lt;/p&gt;
+
+&lt;p&gt;
+pkgdown renders code chunks in most common languages nicely, with syntax
+highlighting, etc. However, it does not indicate what language is used in a
+particular code chunk. For most projects, this is not a problem, because all
+code chunks are R code anyway. But this behavior gets confusing when we mix
+different languages in the same document.
+&lt;/p&gt;
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;img/pkgdown-no-code-labels.png&quot; alt=&quot;pkgdown-no-code-labels.png&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+To solve this issue, I wrote a small javascript hook that adds small labels to
+each code chunk, indicating the language of its content. The hook comprises a
+short jQuery function and some CSS instructions. Simply add the two snippets
+below to your &lt;code&gt;pkgdown/extra.js&lt;/code&gt; and &lt;code&gt;pkgdown/extra.css&lt;/code&gt; to add the labels to
+your pkgdown projects.
+&lt;/p&gt;
+
+
+&lt;div class=&quot;figure&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;img/pkgdown-code-labels.png&quot; alt=&quot;pkgdown-code-labels.png&quot; /&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-javascript&quot;&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;// &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;add to extra.js&lt;/span&gt;
+&lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt; &lt;span style=&quot;color: #daa520;&quot;&gt;addLang&lt;/span&gt;( &lt;span style=&quot;color: #4eee94;&quot;&gt;jQuery&lt;/span&gt; ) {
+    $(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;div.sourceCode&quot;&lt;/span&gt;).each(&lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt;(&lt;span style=&quot;color: #4eee94;&quot;&gt;i&lt;/span&gt;, &lt;span style=&quot;color: #4eee94;&quot;&gt;v&lt;/span&gt;){
+        &lt;span style=&quot;color: #8f62a6;&quot;&gt;var&lt;/span&gt; &lt;span style=&quot;color: #4eee94;&quot;&gt;lang&lt;/span&gt; = $(&lt;span style=&quot;color: #a2cd5a;&quot;&gt;this&lt;/span&gt;).children(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;pre&quot;&lt;/span&gt;).attr(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;class&quot;&lt;/span&gt;).split(&lt;span style=&quot;color: #deb887;&quot;&gt;' '&lt;/span&gt;).pop()
+        &lt;span style=&quot;color: #8f62a6;&quot;&gt;var&lt;/span&gt; &lt;span style=&quot;color: #4eee94;&quot;&gt;Lang&lt;/span&gt; = lang[0].toUpperCase() + lang.slice(1)
+        $(&lt;span style=&quot;color: #a2cd5a;&quot;&gt;this&lt;/span&gt;).before(&lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;lt;div class=&quot;codelabel '&lt;/span&gt; + lang + &lt;span style=&quot;color: #deb887;&quot;&gt;'&quot;&amp;gt;'&lt;/span&gt; + Lang + &lt;span style=&quot;color: #deb887;&quot;&gt;' code&amp;lt;/div&amp;gt;'&lt;/span&gt; +
+                        &lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;lt;div class=&quot;codelabelspacer&quot;&amp;gt;&amp;lt;/div&amp;gt;'&lt;/span&gt;)
+    })
+}
+$( document ).ready(addLang)
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+
+&lt;pre class=&quot;src src-css&quot;&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;/* &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;add to extra.css &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;*/&lt;/span&gt;
+&lt;span style=&quot;color: #daa520;&quot;&gt;codelabel &lt;/span&gt;{
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;border&lt;/span&gt;: 2px solid &lt;span style=&quot;color: #000000; background-color: #ffffff;&quot;&gt;white&lt;/span&gt;;
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;background-color&lt;/span&gt;: &lt;span style=&quot;color: #000000; background-color: #eee;&quot;&gt;#eee&lt;/span&gt;;
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;z-index&lt;/span&gt;: 100;
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;position&lt;/span&gt;: absolute;
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;font-size&lt;/span&gt;: 60%;
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;font-weight&lt;/span&gt;: bold;
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;padding&lt;/span&gt;: 2px;
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;display&lt;/span&gt;: inline-block;
+}
+&lt;span style=&quot;color: #daa520;&quot;&gt;.codelabelspacer &lt;/span&gt;{
+    &lt;span style=&quot;color: #8f62a6;&quot;&gt;height&lt;/span&gt;: 12px;
+}
+&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">pgkdown nicely renders code chunks in your package's documentation website. However, if you mix in non-R code snippets in your articles, it is difficult to distinguish R code chunks from those written in other languages. How nice would it be if each code chunk would have a small label to indicate its content's language.</summary></entry><entry><title type="html">Automatically update your publication list using R scholar II - get a PDF</title><link href="/automatically-update-publications-with-R-scholar-II-get-pdf" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar II - get a PDF" /><published>2019-09-17T00:00:00+02:00</published><updated>2019-09-17T00:00:00+02:00</updated><id>/automatically-update-publications-with-R-scholar-II-get-pdf</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar-II-get-pdf">&lt;p&gt;
 &lt;a href=&quot;http://alecri.github.io/&quot;&gt;Alessio&lt;/a&gt; apparently read my blog post on &lt;a href=&quot;https://thackl.github.io/automatically-update-publications-with-R-scholar&quot;&gt;how to automatically update your
 publication list using R and google scholar&lt;/a&gt;. He contacted me wondering if there
 is also a solution to get a PDF. Good question, thanks!
@@ -35,7 +110,7 @@ chrome_print(
   &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;publications.pdf&quot;&lt;/span&gt;
 )
 &lt;/pre&gt;
-&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">Alessio apparently read my blog post on how to automatically update your publication list using R and google scholar. He contacted me wondering if there is also a solution to get a PDF. Good question, thanks!</summary></entry><entry><title type="html">Get BUSCO gene descriptions from OrthoDB</title><link href="http://localhost:4000/BUSCO-gene-descriptions" rel="alternate" type="text/html" title="Get BUSCO gene descriptions from OrthoDB" /><published>2019-08-07T00:00:00-04:00</published><updated>2019-08-07T00:00:00-04:00</updated><id>http://localhost:4000/BUSCO-gene-descriptions</id><content type="html" xml:base="http://localhost:4000/BUSCO-gene-descriptions">&lt;p&gt;
+&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">Alessio apparently read my blog post on how to automatically update your publication list using R and google scholar. He contacted me wondering if there is also a solution to get a PDF. Good question, thanks!</summary></entry><entry><title type="html">Get BUSCO gene descriptions from OrthoDB</title><link href="/BUSCO-gene-descriptions" rel="alternate" type="text/html" title="Get BUSCO gene descriptions from OrthoDB" /><published>2019-08-07T00:00:00+02:00</published><updated>2019-08-07T00:00:00+02:00</updated><id>/BUSCO-gene-descriptions</id><content type="html" xml:base="/BUSCO-gene-descriptions">&lt;p&gt;
 &lt;a href=&quot;https://busco.ezlab.org/&quot;&gt;BUSCO&lt;/a&gt; lacks descriptions of the ortholog groups it searches for. You can query
 &lt;a href=&quot;https://www.orthodb.org/&quot;&gt;OrthoDB&lt;/a&gt; via its API to map BUSCO IDs and pull the information. Below is a short
 R snippet to automate this and produce a nice table.
@@ -108,7 +183,7 @@ And this is how the table looks like:
 5 EOG09370OS5                                     Ribosomal protein S2
 6 EOG09370OS5      Ribosomal protein S2, bacteria/mitochondria/plastid
 7 EOG09370OS5                     Ribosomal protein S2, conserved site
-&lt;/pre&gt;</content><author><name>thackl</name></author><summary type="html">BUSCO lacks descriptions of the ortholog groups it searches for. You can query OrthoDB via its API to map BUSCO IDs and pull the information. Below is a short R snippet to automate this and produce a nice table.</summary></entry><entry><title type="html">Automatically update your publication list using R scholar</title><link href="http://localhost:4000/automatically-update-publications-with-R-scholar" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar" /><published>2018-11-27T00:00:00-05:00</published><updated>2018-11-27T00:00:00-05:00</updated><id>http://localhost:4000/automatically-update-publications-with-R-scholar</id><content type="html" xml:base="http://localhost:4000/automatically-update-publications-with-R-scholar">&lt;p&gt;
+&lt;/pre&gt;</content><author><name>thackl</name></author><summary type="html">BUSCO lacks descriptions of the ortholog groups it searches for. You can query OrthoDB via its API to map BUSCO IDs and pull the information. Below is a short R snippet to automate this and produce a nice table.</summary></entry><entry><title type="html">Automatically update your publication list using R scholar</title><link href="/automatically-update-publications-with-R-scholar" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar" /><published>2018-11-27T00:00:00+01:00</published><updated>2018-11-27T00:00:00+01:00</updated><id>/automatically-update-publications-with-R-scholar</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar">&lt;p&gt;
 I really dislike tedious tasks like updating my publication list on my
 website. So here is a very short script that does the job for me. It uses the R
 library &lt;a href=&quot;https://CRAN.R-project.org/package=scholar&quot;&gt;scholar&lt;/a&gt; to pull my publications from my google scholar profile. I then
@@ -165,12 +240,12 @@ html_3 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; map2
 html_4 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; c(
   paste0(&lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;lt;p style=&quot;text-align: right; margin-top: -40px;&quot;&amp;gt;&amp;lt;small&amp;gt;Last updated &amp;lt;i&amp;gt;'&lt;/span&gt;,
          format(Sys.Date(), format=&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;%B %d, %Y&quot;&lt;/span&gt;),
-         &lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;amp;ndash; Pulled automatically from my &amp;lt;a href=&quot;https://scholar.google.com/citations?hl=en&amp;amp;user=b8bWNkUAAAAJ&quot;&amp;gt;Google Scholar profile&amp;lt;/a&amp;gt;. See &amp;lt;a href=&quot;http://localhost:4000/automatically-update-publications-with-R-scholar&quot;&amp;gt;this post&amp;lt;/a&amp;gt; for how it works.&amp;lt;/small&amp;gt;&amp;lt;/p&amp;gt;'&lt;/span&gt;), html_3)
+         &lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;amp;ndash; Pulled automatically from my &amp;lt;a href=&quot;https://scholar.google.com/citations?hl=en&amp;amp;user=b8bWNkUAAAAJ&quot;&amp;gt;Google Scholar profile&amp;lt;/a&amp;gt;. See &amp;lt;a href=&quot;/automatically-update-publications-with-R-scholar&quot;&amp;gt;this post&amp;lt;/a&amp;gt; for how it works.&amp;lt;/small&amp;gt;&amp;lt;/p&amp;gt;'&lt;/span&gt;), html_3)
 
 &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;write the html list to a file&lt;/span&gt;
 writeLines(html_4, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;../_includes/publications.html&quot;&lt;/span&gt;)
 &lt;/pre&gt;
-&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">I really dislike tedious tasks like updating my publication list on my website. So here is a very short script that does the job for me. It uses the R library scholar to pull my publications from my google scholar profile. I then use some quick &amp;amp; dirty string parsing to convert that data into a html table. I'm sure there are a tons of more elegant ways out there, but this worked, and only took me minutes to set up.</summary></entry><entry><title type="html">Plotting a ggtree and ggplots side by side</title><link href="http://localhost:4000/ggtree-composite-plots" rel="alternate" type="text/html" title="Plotting a ggtree and ggplots side by side" /><published>2018-10-08T00:00:00-04:00</published><updated>2018-10-08T00:00:00-04:00</updated><id>http://localhost:4000/ggtree-composite-plots</id><content type="html" xml:base="http://localhost:4000/ggtree-composite-plots">&lt;p&gt;
+&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">I really dislike tedious tasks like updating my publication list on my website. So here is a very short script that does the job for me. It uses the R library scholar to pull my publications from my google scholar profile. I then use some quick &amp;amp; dirty string parsing to convert that data into a html table. I'm sure there are a tons of more elegant ways out there, but this worked, and only took me minutes to set up.</summary></entry><entry><title type="html">Plotting a ggtree and ggplots side by side</title><link href="/ggtree-composite-plots" rel="alternate" type="text/html" title="Plotting a ggtree and ggplots side by side" /><published>2018-10-08T00:00:00+02:00</published><updated>2018-10-08T00:00:00+02:00</updated><id>/ggtree-composite-plots</id><content type="html" xml:base="/ggtree-composite-plots">&lt;p&gt;
 Plotting phylogenies and associated data side by side is a good way to explore
 evolutionary patterns in your data.  In this post I will describe my approach
 for creating such plots in R using &lt;a href=&quot;https://ggplot2.tidyverse.org/index.html&quot;&gt;ggplot&lt;/a&gt;, &lt;a href=&quot;https://guangchuangyu.github.io/software/ggtree/&quot;&gt;ggtree&lt;/a&gt;, and &lt;a href=&quot;https://github.com/thomasp85/patchwork&quot;&gt;patchwork&lt;/a&gt;.
@@ -423,7 +498,7 @@ used for the initial unaligned ggtree/ggplots. This makes it very easy to go
 from a set of generic plots to this composite plot. At the same time, we retain
 the level modularity and customizability that we had with the original
 ggplots. This, in my opinion, is what makes this approach powerful.
-&lt;/p&gt;</content><author><name>thackl</name></author><summary type="html">Plotting phylogenies and associated data side by side is a good way to explore evolutionary patterns in your data. In this post I will describe my approach for creating such plots in R using ggplot, ggtree, and patchwork.</summary></entry><entry><title type="html">Blogging with Emacs Org-Mode and Jekyll</title><link href="http://localhost:4000/blogging-with-emacs-org-mode-and-jekyll" rel="alternate" type="text/html" title="Blogging with Emacs Org-Mode and Jekyll" /><published>2018-09-04T00:00:00-04:00</published><updated>2018-09-04T00:00:00-04:00</updated><id>http://localhost:4000/blogging-with-emacs-org-mode-and-jekyll</id><content type="html" xml:base="http://localhost:4000/blogging-with-emacs-org-mode-and-jekyll">&lt;p&gt;
+&lt;/p&gt;</content><author><name>thackl</name></author><summary type="html">Plotting phylogenies and associated data side by side is a good way to explore evolutionary patterns in your data. In this post I will describe my approach for creating such plots in R using ggplot, ggtree, and patchwork.</summary></entry><entry><title type="html">Blogging with Emacs Org-Mode and Jekyll</title><link href="/blogging-with-emacs-org-mode-and-jekyll" rel="alternate" type="text/html" title="Blogging with Emacs Org-Mode and Jekyll" /><published>2018-09-04T00:00:00+02:00</published><updated>2018-09-04T00:00:00+02:00</updated><id>/blogging-with-emacs-org-mode-and-jekyll</id><content type="html" xml:base="/blogging-with-emacs-org-mode-and-jekyll">&lt;p&gt;
 I've been thinking about getting my own blog up for more than a while now, and
 finally made it happen! This is is my first post, and it will cover the basics
 steps I took to get this site up and running.

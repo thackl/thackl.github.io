@@ -1,0 +1,43 @@
+#!/usr/bin/env perl
+# Created: 16 May 2020
+# Author: Thomas Hackl, thackl@lim4.de
+use warnings;
+use strict;
+use Getopt::Long  qw(:config no_ignore_case bundling);
+use Data::Dumper;
+use FindBin qw($RealBin);
+use File::Copy qw(copy);
+use POSIX qw(strftime);
+
+GetOptions (
+    "editor=s" => \(my $editor = 'emacs'),
+    "help|h!" => \(my $help),
+    "debug|D!" => \(my $debug),
+) or die("Error in command line arguments\n");
+
+if ($help || @ARGV > 1){
+    print "Usage: blog-post short-topic\n";
+    printf " %-19s  %s\n", "-h/--help", "show this help";
+    printf " %-19s  %s\n", "-D/--debug", "show debug messages";
+    exit 0;
+}
+
+my $topic;
+if (@ARGV == 0) {
+    print "Short topic for new post:\n";
+    $topic = <STDIN>;
+    chomp($topic);
+}else {
+    $topic = $ARGV[0];
+}
+
+$topic =~ tr/ /-/s;
+my $date = strftime("%F", localtime);
+my $post = "$date-$topic.org";
+
+print "Creating new blog post: $post", "\n";
+
+chdir($RealBin);
+copy("post-template.org", $post);
+system("$editor $post &");
+

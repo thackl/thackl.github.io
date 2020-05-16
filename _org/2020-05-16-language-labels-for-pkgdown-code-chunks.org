@@ -1,0 +1,66 @@
+#+BEGIN_HTML
+---
+layout: post
+class: post-template
+title: "Add a Language label to code chunks in pgkdown articles"
+author: thackl
+cover: img/pkgdown-code-labels-header.png
+---
+#+END_HTML
+
+pgkdown nicely renders code chunks in your package's documentation
+website. However, if you mix in non-R code snippets in your articles, it is
+difficult to distinguish R code chunks from those written in other
+languages. How nice would it be if each code chunk would have a small label to
+indicate its content's language.
+
+[[https://pkgdown.r-lib.org/][pkgdown]] is super useful for documenting your R packages. It is particularly well
+suited to showcase small code examples. In some of my projects, on top of R code
+chunks, I also provide code examples in other languages such as short Linux
+command line code snippets I used to preprocess data before loading it into R.
+
+pkgdown renders code chunks in most common languages nicely, with syntax
+highlighting, etc. However, it does not indicate what language is used in a
+particular code chunk. For most projects, this is not a problem, because all
+code chunks are R code anyway. But this behavior gets confusing when we mix
+different languages in the same document.
+
+[[file:img/pkgdown-no-code-labels.png]]
+
+To solve this issue, I wrote a small javascript hook that adds small labels to
+each code chunk, indicating the language of its content. The hook comprises a
+short jQuery function and some CSS instructions. Simply add the two snippets
+below to your =pkgdown/extra.js= and =pkgdown/extra.css= to add the labels to
+your pkgdown projects.
+
+[[file:img/pkgdown-code-labels.png]]
+
+#+BEGIN_SRC javascript
+// add to extra.js
+function addLang( jQuery ) {
+    $("div.sourceCode").each(function(i, v){
+        var lang = $(this).children("pre").attr("class").split(' ').pop()
+        var Lang = lang[0].toUpperCase() + lang.slice(1)
+        $(this).before('<div class="codelabel ' + lang + '">' + Lang + ' code</div>' +
+                        '<div class="codelabelspacer"></div>')
+    })
+}
+$( document ).ready(addLang)
+#+END_SRC
+
+#+BEGIN_SRC css
+/* add to extra.css */
+codelabel {
+    border: 2px solid white;
+    background-color: #eee;
+    z-index: 100;
+    position: absolute;
+    font-size: 60%;
+    font-weight: bold;
+    padding: 2px;
+    display: inline-block;
+}
+.codelabelspacer {
+    height: 12px;
+}
+#+END_SRC

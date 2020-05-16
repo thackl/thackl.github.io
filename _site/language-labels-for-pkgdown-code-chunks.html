@@ -11,7 +11,7 @@
 
 
 
-    <title>Automatically update your publication list using R scholar</title>
+    <title>Add a Language label to code chunks in pgkdown articles</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
@@ -25,22 +25,22 @@
     <!-- This tag outputs SEO meta+structured data and other important settings -->
     <meta name="description" content="Thomas Hackl <br> Coding Biologist" />
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
-    <link rel="canonical" href="/automatically-update-publications-with-R-scholar" />
+    <link rel="canonical" href="/language-labels-for-pkgdown-code-chunks" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
     <meta property="og:site_name" content="thacklog" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Automatically update your publication list using R scholar" />
+    <meta property="og:title" content="Add a Language label to code chunks in pgkdown articles" />
     <meta property="og:description" content="Thomas Hackl <br> Coding Biologist" />
-    <meta property="og:url" content="/automatically-update-publications-with-R-scholar" />
-    <meta property="og:image" content="/img/google-scholar-books.png" />
+    <meta property="og:url" content="/language-labels-for-pkgdown-code-chunks" />
+    <meta property="og:image" content="/img/pkgdown-code-labels-header.png" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Automatically update your publication list using R scholar" />
+    <meta name="twitter:title" content="Add a Language label to code chunks in pgkdown articles" />
     <meta name="twitter:description" content="Thomas Hackl <br> Coding Biologist" />
     <meta name="twitter:url" content="/" />
-    <meta name="twitter:image" content="/img/google-scholar-books.png" />
+    <meta name="twitter:image" content="/img/pkgdown-code-labels-header.png" />
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="thacklog" />
     <meta name="twitter:site" content="@th4ckl" />
@@ -57,16 +57,16 @@
         "name": "thacklog",
         "logo": "/assets/images/thackl-logo-blog.png"
     },
-    "url": "/automatically-update-publications-with-R-scholar",
+    "url": "/language-labels-for-pkgdown-code-chunks",
     "image": {
         "@type": "ImageObject",
-        "url": "/img/google-scholar-books.png",
+        "url": "/img/pkgdown-code-labels-header.png",
         "width": 2000,
         "height": 666
     },
     "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "/automatically-update-publications-with-R-scholar"
+        "@id": "/language-labels-for-pkgdown-code-chunks"
     },
     "description": "Thomas Hackl <br> Coding Biologist"
 }
@@ -81,7 +81,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="Automatically update your publication list using R scholar" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Add a Language label to code chunks in pgkdown articles" href="/feed.xml" />
 
 
 </head>
@@ -137,82 +137,95 @@ into the {body} of the default.hbs template -->
         <article class="post-full  ">
 
             <header class="post-full-header">
-                <h1 class="post-full-title">Automatically update your publication list using R scholar</h1>
+                <h1 class="post-full-title">Add a Language label to code chunks in pgkdown articles</h1>
                 <hr>
                 <section class="post-full-meta">
-                    <time class="post-full-meta-date" datetime="27 November 2018">27 November 2018</time>
+                    <time class="post-full-meta-date" datetime="16 May 2020">16 May 2020</time>
                     
                 </section>
             </header>
 
             
-            <figure class="post-full-image" style="background-image: url(/img/google-scholar-books.png)">
+            <figure class="post-full-image" style="background-image: url(/img/pkgdown-code-labels-header.png)">
             </figure>
             
 
             <section class="post-full-content">
                 <div class="kg-card-markdown">
                     <p>
-I really dislike tedious tasks like updating my publication list on my
-website. So here is a very short script that does the job for me. It uses the R
-library <a href="https://CRAN.R-project.org/package=scholar">scholar</a> to pull my publications from my google scholar profile. I then
-use some quick &amp; dirty string parsing to convert that data into a html
-table. I'm sure there are a tons of more elegant ways out there, but this
-worked, and only took me minutes to set up.
+pgkdown nicely renders code chunks in your package's documentation
+website. However, if you mix in non-R code snippets in your articles, it is
+difficult to distinguish R code chunks from those written in other
+languages. How nice would it be if each code chunk would have a small label to
+indicate its content's language.
 </p>
+
+<p>
+<a href="https://pkgdown.r-lib.org/">pkgdown</a> is super useful for documenting your R packages. It is particularly well
+suited to showcase small code examples. In some of my projects, on top of R code
+chunks, I also provide code examples in other languages such as short Linux
+command line code snippets I used to preprocess data before loading it into R.
+</p>
+
+<p>
+pkgdown renders code chunks in most common languages nicely, with syntax
+highlighting, etc. However, it does not indicate what language is used in a
+particular code chunk. For most projects, this is not a problem, because all
+code chunks are R code anyway. But this behavior gets confusing when we mix
+different languages in the same document.
+</p>
+
+
+<div class="figure">
+<p><img src="img/pkgdown-no-code-labels.png" alt="pkgdown-no-code-labels.png" />
+</p>
+</div>
+
+<p>
+To solve this issue, I wrote a small javascript hook that adds small labels to
+each code chunk, indicating the language of its content. The hook comprises a
+short jQuery function and some CSS instructions. Simply add the two snippets
+below to your <code>pkgdown/extra.js</code> and <code>pkgdown/extra.css</code> to add the labels to
+your pkgdown projects.
+</p>
+
+
+<div class="figure">
+<p><img src="img/pkgdown-code-labels.png" alt="pkgdown-code-labels.png" />
+</p>
+</div>
 
 <div class="org-src-container">
 
-<pre class="src src-R"><span style="color: #a2cd5a;">library</span>(scholar)
-<span style="color: #a2cd5a;">library</span>(tidyverse)
-<span style="color: #a2cd5a;">library</span>(glue)
-
-<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">escape some special chars, german umlauts, ...</span>
-<span style="color: #daa520;">char2html</span> <span style="color: #a2cd5a;">&lt;-</span> <span style="color: #8f62a6;">function</span>(x){
-  dictionary <span style="color: #a2cd5a;">&lt;-</span> data.frame(
-    symbol = c(<span style="color: #deb887;">"&#228;"</span>,<span style="color: #deb887;">"&#246;"</span>,<span style="color: #deb887;">"&#252;"</span>,<span style="color: #deb887;">"&#196;"</span>, <span style="color: #deb887;">"&#214;"</span>, <span style="color: #deb887;">"&#220;"</span>, <span style="color: #deb887;">"&#223;"</span>),
-    html = c(<span style="color: #deb887;">"&amp;auml;"</span>,<span style="color: #deb887;">"&amp;ouml;"</span>, <span style="color: #deb887;">"&amp;uuml;"</span>,<span style="color: #deb887;">"&amp;Auml;"</span>,
-             <span style="color: #deb887;">"&amp;Ouml;"</span>, <span style="color: #deb887;">"&amp;Uuml;"</span>,<span style="color: #deb887;">"&amp;szlig;"</span>))
-  <span style="color: #8f62a6;">for</span>(i <span style="color: #8f62a6;">in</span> 1:dim(dictionary)[1]){
-    x <span style="color: #a2cd5a;">&lt;-</span> gsub(dictionary$symbol[i],dictionary$html[i],x)
-  }
-  x
+<pre class="src src-javascript"><span style="color: #7f7f7f;">// </span><span style="color: #7f7f7f;">add to extra.js</span>
+<span style="color: #8f62a6;">function</span> <span style="color: #daa520;">addLang</span>( <span style="color: #4eee94;">jQuery</span> ) {
+    $(<span style="color: #deb887;">"div.sourceCode"</span>).each(<span style="color: #8f62a6;">function</span>(<span style="color: #4eee94;">i</span>, <span style="color: #4eee94;">v</span>){
+        <span style="color: #8f62a6;">var</span> <span style="color: #4eee94;">lang</span> = $(<span style="color: #a2cd5a;">this</span>).children(<span style="color: #deb887;">"pre"</span>).attr(<span style="color: #deb887;">"class"</span>).split(<span style="color: #deb887;">' '</span>).pop()
+        <span style="color: #8f62a6;">var</span> <span style="color: #4eee94;">Lang</span> = lang[0].toUpperCase() + lang.slice(1)
+        $(<span style="color: #a2cd5a;">this</span>).before(<span style="color: #deb887;">'&lt;div class="codelabel '</span> + lang + <span style="color: #deb887;">'"&gt;'</span> + Lang + <span style="color: #deb887;">' code&lt;/div&gt;'</span> +
+                        <span style="color: #deb887;">'&lt;div class="codelabelspacer"&gt;&lt;/div&gt;'</span>)
+    })
 }
+$( document ).ready(addLang)
+</pre>
+</div>
 
-<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">my google scholar user id from my profile url</span>
-<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">https://scholar.google.com/citations?user=b8bWNkUAAAAJ&amp;hl=en</span>
-thackl <span style="color: #a2cd5a;">&lt;-</span> <span style="color: #deb887;">"b8bWNkUAAAAJ"</span>
+<div class="org-src-container">
 
-<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">pull from google</span>
-html_1 <span style="color: #a2cd5a;">&lt;-</span> get_publications(thackl)
-
-<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">convert to htlm table - the ugly way ;)</span>
-html_2 <span style="color: #a2cd5a;">&lt;-</span> html_1 %&gt;%
-  as_tibble %&gt;% arrange(desc(year)) %&gt;%
-  mutate(
-<span style="color: #7f7f7f;">#    </span><span style="color: #7f7f7f;">author=str_replace_all(author, " (\\S) ", "\\1 "),</span>
-    author=str_replace_all(author, <span style="color: #deb887;">"([A-Z]) ([A-Z]) "</span>, <span style="color: #deb887;">"\\1\\2 "</span>),
-    author=str_replace_all(author, <span style="color: #deb887;">", \\.\\.\\."</span>, <span style="color: #deb887;">" et al."</span>),
-    author=str_replace_all(author, <span style="color: #deb887;">"T Hackl"</span>, <span style="color: #deb887;">"&lt;b&gt;T Hackl&lt;/b&gt;"</span>) <span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">make my name fat</span>
-  ) %&gt;% split(.$year) %&gt;%
-    map(<span style="color: #8f62a6;">function</span>(x){
-      x <span style="color: #a2cd5a;">&lt;-</span> x %&gt;%
-        glue_data(<span style="color: #deb887;">'&lt;tr&gt;&lt;td width="100%"&gt;{author} ({year}) &lt;a href="https://scholar.google.com/scholar?oi=bibs&amp;cluster={cid}&amp;btnI=1&amp;hl=en"&gt;{title}&lt;/a&gt;, {journal}, {number}&lt;/td&gt;&lt;/tr&gt;'</span>) %&gt;%
-        str_replace_all(<span style="color: #deb887;">"(, )+&lt;/p&gt;"</span>, <span style="color: #deb887;">"&lt;/p&gt;"</span>) %&gt;%
-        char2html()
-      x <span style="color: #a2cd5a;">&lt;-</span> c(<span style="color: #deb887;">'&lt;table class="publication-table" border="10px solid blue" cellspacing="0" cellpadding="6" rules="", frame=""&gt;&lt;tbody&gt;'</span>, x, <span style="color: #deb887;">'&lt;/tbody&gt;&lt;/table&gt;'</span>)
-      <span style="color: #8f62a6;">return</span>(x);
-    }) %&gt;% rev
-
-html_3 <span style="color: #a2cd5a;">&lt;-</span> map2(names(html_2) %&gt;% paste0(<span style="color: #deb887;">"&lt;h3&gt;"</span>, ., <span style="color: #deb887;">"&lt;/h3&gt;"</span>), html_2, c) %&gt;% unlist
-
-html_4 <span style="color: #a2cd5a;">&lt;-</span> c(
-  paste0(<span style="color: #deb887;">'&lt;p style="text-align: right; margin-top: -40px;"&gt;&lt;small&gt;Last updated &lt;i&gt;'</span>,
-         format(Sys.Date(), format=<span style="color: #deb887;">"%B %d, %Y"</span>),
-         <span style="color: #deb887;">'&amp;ndash; Pulled automatically from my &lt;a href="https://scholar.google.com/citations?hl=en&amp;user=b8bWNkUAAAAJ"&gt;Google Scholar profile&lt;/a&gt;. See &lt;a href="/automatically-update-publications-with-R-scholar"&gt;this post&lt;/a&gt; for how it works.&lt;/small&gt;&lt;/p&gt;'</span>), html_3)
-
-<span style="color: #7f7f7f;"># </span><span style="color: #7f7f7f;">write the html list to a file</span>
-writeLines(html_4, <span style="color: #deb887;">"../_includes/publications.html"</span>)
+<pre class="src src-css"><span style="color: #7f7f7f;">/* </span><span style="color: #7f7f7f;">add to extra.css </span><span style="color: #7f7f7f;">*/</span>
+<span style="color: #daa520;">codelabel </span>{
+    <span style="color: #8f62a6;">border</span>: 2px solid <span style="color: #000000; background-color: #ffffff;">white</span>;
+    <span style="color: #8f62a6;">background-color</span>: <span style="color: #000000; background-color: #eee;">#eee</span>;
+    <span style="color: #8f62a6;">z-index</span>: 100;
+    <span style="color: #8f62a6;">position</span>: absolute;
+    <span style="color: #8f62a6;">font-size</span>: 60%;
+    <span style="color: #8f62a6;">font-weight</span>: bold;
+    <span style="color: #8f62a6;">padding</span>: 2px;
+    <span style="color: #8f62a6;">display</span>: inline-block;
+}
+<span style="color: #daa520;">.codelabelspacer </span>{
+    <span style="color: #8f62a6;">height</span>: 12px;
+}
 </pre>
 </div>
 
@@ -261,64 +274,25 @@ writeLines(html_4, <span style="color: #deb887;">"../_includes/publications.html
 
             <!-- If there's a next post, display it using the same markup included from - partials/post-card.hbs -->
             
-                
-    <article class="post-card post-template">
-        
-            <a class="post-card-image-link" href="/BUSCO-gene-descriptions">
-                <div class="post-card-image" style="background-image: url(/img/mojave.jpg)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/BUSCO-gene-descriptions">
-                <header class="post-card-header">
-                    
-
-                    <h2 class="post-card-title">Get BUSCO gene descriptions from OrthoDB</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    <p>BUSCO lacks descriptions of the ortholog groups it searches for. You can query OrthoDB via its API to map BUSCO IDs and pull the information. Below is a short R snippet to automate</p>
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-            </footer>
-        </div>
-    </article>
-
-            
 
             <!-- If there's a previous post, display it using the same markup included from - partials/post-card.hbs -->
             
                 
     <article class="post-card post-template">
         
-            <a class="post-card-image-link" href="/ggtree-composite-plots">
-                <div class="post-card-image" style="background-image: url(/img/ggtree-composite-3.png)"></div>
+            <a class="post-card-image-link" href="/automatically-update-publications-with-R-scholar-II-get-pdf">
+                <div class="post-card-image" style="background-image: url(/img/google-scholar-books-pdf.png)"></div>
             </a>
         
         <div class="post-card-content">
-            <a class="post-card-content-link" href="/ggtree-composite-plots">
+            <a class="post-card-content-link" href="/automatically-update-publications-with-R-scholar-II-get-pdf">
                 <header class="post-card-header">
                     
 
-                    <h2 class="post-card-title">Plotting a ggtree and ggplots side by side</h2>
+                    <h2 class="post-card-title">Automatically update your publication list using R scholar II - get a PDF</h2>
                 </header>
                 <section class="post-card-excerpt">
-                    <p>Plotting phylogenies and associated data side by side is a good way to explore evolutionary patterns in your data. In this post I will describe my approach for creating such plots in R</p>
+                    <p>Alessio apparently read my blog post on how to automatically update your publication list using R and google scholar. He contacted me wondering if there is also a solution to get a PDF.</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -356,18 +330,18 @@ writeLines(html_4, <span style="color: #deb887;">"../_includes/publications.html
         </a>
     </div>
     <span class="floating-header-divider">&mdash;</span>
-    <div class="floating-header-title">Automatically update your publication list using R scholar</div>
+    <div class="floating-header-title">Add a Language label to code chunks in pgkdown articles</div>
     <div class="floating-header-share">
         <div class="floating-header-share-label">Share this <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path d="M7.5 15.5V4a1.5 1.5 0 1 1 3 0v4.5h2a1 1 0 0 1 1 1h2a1 1 0 0 1 1 1H18a1.5 1.5 0 0 1 1.5 1.5v3.099c0 .929-.13 1.854-.385 2.748L17.5 23.5h-9c-1.5-2-5.417-8.673-5.417-8.673a1.2 1.2 0 0 1 1.76-1.605L7.5 15.5zm6-6v2m-3-3.5v3.5m6-1v2"/>
 </svg>
 </div>
-        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Automatically+update+your+publication+list+using+R+scholar&amp;url=https://thackl.github.ioautomatically-update-publications-with-R-scholar"
+        <a class="floating-header-share-tw" href="https://twitter.com/share?text=Add+a+Language+label+to+code+chunks+in+pgkdown+articles&amp;url=https://thackl.github.iolanguage-labels-for-pkgdown-code-chunks"
             onclick="window.open(this.href, 'share-twitter', 'width=550,height=235');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"/></svg>
 
         </a>
-        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thackl.github.ioautomatically-update-publications-with-R-scholar"
+        <a class="floating-header-share-fb" href="https://www.facebook.com/sharer/sharer.php?u=https://thackl.github.iolanguage-labels-for-pkgdown-code-chunks"
             onclick="window.open(this.href, 'share-facebook','width=580,height=296');return false;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M19 6h5V0h-5c-3.86 0-7 3.14-7 7v3H8v6h4v16h6V16h5l1-6h-6V7c0-.542.458-1 1-1z"/></svg>
 
