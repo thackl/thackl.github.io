@@ -4,6 +4,7 @@ class: post-template
 title: "Add a language label to code chunks in pkgdown articles"
 author: thackl
 cover: img/pkgdown-code-labels-header.png
+categories: [R]
 ---
 
 <p>
@@ -45,5 +46,40 @@ your pkgdown projects.
 
 
 <div class="figure">
-<p><img src="img/pkgdown-code-labels.png" alt="pkgdown-code-labels.png" /></p>
+<p><img src="img/pkgdown-code-labels.png" alt="pkgdown-code-labels.png" />
+</p>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #7f7f7f;">// </span><span style="color: #7f7f7f;">add to extra.js</span>
+<span style="color: #8f62a6;">function</span> <span style="color: #daa520;">addLang</span>( <span style="color: #4eee94;">jQuery</span> ) {
+    $(<span style="color: #deb887;">"div.sourceCode"</span>).each(<span style="color: #8f62a6;">function</span>(<span style="color: #4eee94;">i</span>, <span style="color: #4eee94;">v</span>){
+        <span style="color: #8f62a6;">var</span> <span style="color: #4eee94;">lang</span> = $(<span style="color: #a2cd5a;">this</span>).children(<span style="color: #deb887;">"pre"</span>).attr(<span style="color: #deb887;">"class"</span>).split(<span style="color: #deb887;">' '</span>).pop()
+        <span style="color: #8f62a6;">var</span> <span style="color: #4eee94;">Lang</span> = lang[0].toUpperCase() + lang.slice(1)
+        $(<span style="color: #a2cd5a;">this</span>).before(<span style="color: #deb887;">'&lt;div class="codelabel '</span> + lang + <span style="color: #deb887;">'"&gt;'</span> + Lang + <span style="color: #deb887;">' code&lt;/div&gt;'</span> +
+                        <span style="color: #deb887;">'&lt;div class="codelabelspacer"&gt;&lt;/div&gt;'</span>)
+    })
+}
+$( document ).ready(addLang)
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-css"><span style="color: #7f7f7f;">/* </span><span style="color: #7f7f7f;">add to extra.css </span><span style="color: #7f7f7f;">*/</span>
+<span style="color: #daa520;">codelabel </span>{
+    <span style="color: #8f62a6;">border</span>: 2px solid <span style="color: #000000; background-color: #ffffff;">white</span>;
+    <span style="color: #8f62a6;">background-color</span>: <span style="color: #000000; background-color: #eee;">#eee</span>;
+    <span style="color: #8f62a6;">z-index</span>: 100;
+    <span style="color: #8f62a6;">position</span>: absolute;
+    <span style="color: #8f62a6;">font-size</span>: 60%;
+    <span style="color: #8f62a6;">font-weight</span>: bold;
+    <span style="color: #8f62a6;">padding</span>: 2px;
+    <span style="color: #8f62a6;">display</span>: inline-block;
+}
+<span style="color: #daa520;">.codelabelspacer </span>{
+    <span style="color: #8f62a6;">height</span>: 12px;
+}
+</pre>
 </div>

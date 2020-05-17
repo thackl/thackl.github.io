@@ -132,6 +132,10 @@ blog-post "short-topic"
 # C-c C-e P f
 bundle exec jekyll serve # -> localhost:4000
 
-bundle exec jekyll build && git commit, push -> live
+#??? bundle exec jekyll build && 
+git commit, push -> live
 
 #+END_SRC
+
+* INPG Add RSS feed
+https://methodmatters.github.io/rss-add-github-blog-to-r-bloggers/

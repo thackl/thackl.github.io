@@ -1,4 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-05-17T10:02:43+02:00</updated><id>/</id><title type="html">thacklog</title><subtitle>Thomas Hackl &lt;br&gt; Coding Biologist</subtitle><entry><title type="html">Add a language label to code chunks in pkgdown articles</title><link href="/language-labels-for-pkgdown-code-chunks" rel="alternate" type="text/html" title="Add a language label to code chunks in pkgdown articles" /><published>2020-05-16T00:00:00+02:00</published><updated>2020-05-16T00:00:00+02:00</updated><id>/language-labels-for-pkgdown-code-chunks</id><content type="html" xml:base="/language-labels-for-pkgdown-code-chunks">&lt;p&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>thacklog</title>
+        <description>Thomas Hackl &lt;br&gt; Coding Biologist</description>
+        <link>//</link>
+        <atom:link href="//feed-r.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Sun, 17 May 2020 10:02:43 +0200</pubDate>
+        <lastBuildDate>Sun, 17 May 2020 10:02:43 +0200</lastBuildDate>
+        <generator>Jekyll v3.6.2</generator>
+        
+            <item>
+                <title>Add a language label to code chunks in pkgdown articles</title>
+                <author>Thomas Hackl</author>
+                <description>&lt;p&gt;
 pkgdown nicely renders code chunks in your package's documentation
 website. However, if you mix in non-R code snippets in your articles, it is
 difficult to distinguish R code chunks from those written in other
@@ -73,7 +87,21 @@ $( document ).ready(addLang)
     &lt;span style=&quot;color: #8f62a6;&quot;&gt;height&lt;/span&gt;: 12px;
 }
 &lt;/pre&gt;
-&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">pkgdown nicely renders code chunks in your package's documentation website. However, if you mix in non-R code snippets in your articles, it is difficult to distinguish R code chunks from those written in other languages. How nice would it be if each code chunk would have a small label to indicate its content's language.</summary></entry><entry><title type="html">Automatically update your publication list using R scholar II - get a PDF</title><link href="/automatically-update-publications-with-R-scholar-II-get-pdf" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar II - get a PDF" /><published>2019-09-17T00:00:00+02:00</published><updated>2019-09-17T00:00:00+02:00</updated><id>/automatically-update-publications-with-R-scholar-II-get-pdf</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar-II-get-pdf">&lt;p&gt;
+&lt;/div&gt;
+</description>
+                <pubDate>Sat, 16 May 2020 00:00:00 +0200</pubDate>
+                <link>//language-labels-for-pkgdown-code-chunks</link>
+                <guid isPermaLink="true">//language-labels-for-pkgdown-code-chunks</guid>
+                
+                
+                <category>R</category>
+                
+            </item>
+        
+            <item>
+                <title>Automatically update your publication list using R scholar II - get a PDF</title>
+                <author>Thomas Hackl</author>
+                <description>&lt;p&gt;
 &lt;a href=&quot;http://alecri.github.io/&quot;&gt;Alessio&lt;/a&gt; apparently read my blog post on &lt;a href=&quot;https://thackl.github.io/automatically-update-publications-with-R-scholar&quot;&gt;how to automatically update your
 publication list using R and google scholar&lt;/a&gt;. He contacted me wondering if there
 is also a solution to get a PDF. Good question, thanks!
@@ -110,120 +138,21 @@ chrome_print(
   &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;publications.pdf&quot;&lt;/span&gt;
 )
 &lt;/pre&gt;
-&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">Alessio apparently read my blog post on how to automatically update your publication list using R and google scholar. He contacted me wondering if there is also a solution to get a PDF. Good question, thanks!</summary></entry><entry><title type="html">Get BUSCO gene descriptions from OrthoDB</title><link href="/BUSCO-gene-descriptions" rel="alternate" type="text/html" title="Get BUSCO gene descriptions from OrthoDB" /><published>2019-08-07T00:00:00+02:00</published><updated>2019-08-07T00:00:00+02:00</updated><id>/BUSCO-gene-descriptions</id><content type="html" xml:base="/BUSCO-gene-descriptions">&lt;p&gt;
-&lt;a href=&quot;https://busco.ezlab.org/&quot;&gt;BUSCO&lt;/a&gt; lacks descriptions of the ortholog groups it searches for. You can query
-&lt;a href=&quot;https://www.orthodb.org/&quot;&gt;OrthoDB&lt;/a&gt; via its API to map BUSCO IDs and pull the information. Below is a short
-R snippet to automate this and produce a nice table.
-&lt;/p&gt;
-
-&lt;p&gt;
-&lt;a href=&quot;https://busco.ezlab.org/&quot;&gt;BUSCO&lt;/a&gt; is a great tool to assess the completeness of eukaryotic genome
-assemblies. It let's you search your assemblies for a sets of conserved
-near-universal single copy orthologs genes, and returns useful statistics on
-their absence and presence in the data set at hand. Because the chosen orthologs
-are ubiquitous, complete assemblies should contain most of these markers. It also
-is a good way for comparing assembly versions - the more complete markers, the
-better. But also the numbers of fragmented and duplicated markers can give you
-useful information about assembly qualities.
-&lt;/p&gt;
-
-&lt;p&gt;
-Recently, I used BUSCO to assess four assemblies of quite similar strains of
-the marine flagellate &lt;i&gt;Cafeteria roenbergensis&lt;/i&gt;. Among other things, I noticed
-that in all strain the same set of BUSCOs was missing. This made me curious, and
-I wondered if this might reflect some interesting biology - certain pathways
-missing, &amp;#x2026; Unfortunately, the output generated by BUSCO does not contain any
-descriptive information about the different gene clusters, just the BUSCO IDs
-for each cluster; apparently a issue that others encountered before, and could
-not really solve (&lt;a href=&quot;https://www.biostars.org/p/182544/&quot;&gt;Get BUSCO gene descriptions - Biostars&lt;/a&gt;).
-&lt;/p&gt;
-
-&lt;p&gt;
-So, here is how I solved it. Most BUSCO data sets are generated from &lt;a href=&quot;https://www.orthodb.org/&quot;&gt;OrthoDB&lt;/a&gt;. If
-you search OrthoDB with BUSCO IDs, you will immediately be forwarded to the
-respective ortho-group entry containing all the metainformation we are
-interested in. Because I want to retrieve metadata for a large number of BUSCO
-IDs, I wrote a small R script that queries the OrthoDB API, and returns a nice
-table with the results.
-&lt;/p&gt;
-
-&lt;div class=&quot;org-src-container&quot;&gt;
-
-&lt;pre class=&quot;src src-R&quot;&gt;&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(tidyverse)
-&lt;span style=&quot;color: #a2cd5a;&quot;&gt;library&lt;/span&gt;(jsonlite)
-
-busco_ids &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; c(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;EOG093714Q2&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;EOG09370GHP&quot;&lt;/span&gt;, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;EOG09370OS5&quot;&lt;/span&gt;)
-names(busco_ids) &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; busco_ids &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;so map_df gets .id right&lt;/span&gt;
-
-&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;a tibble of interpro profile associated with each busco_id&lt;/span&gt;
-busco_ipr &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; map_df(busco_ids, .id=&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;busco_id&quot;&lt;/span&gt;,  &lt;span style=&quot;color: #8f62a6;&quot;&gt;function&lt;/span&gt;(busco_id){
-  write(busco_id, stderr()) &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;just so we can monitor progress&lt;/span&gt;
-  &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;map the BUSCO ID to OrthoDB group ID&lt;/span&gt;
-  query &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; read_json(paste0(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;https://www.orthodb.org/search?query=&quot;&lt;/span&gt;, busco_id))
-  odb_id &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; query$data[1]
-  &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;get all info on the orthogroup&lt;/span&gt;
-  odb_info &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; read_json(paste0(&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;https://www.orthodb.org/group?id=&quot;&lt;/span&gt;, odb_id),
-    simplifyVector = &lt;span style=&quot;color: #98f5ff;&quot;&gt;TRUE&lt;/span&gt;)
-  &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;return the interpro table&lt;/span&gt;
-  odb_info$data$interpro_domains
-})
-
-busco_ipr %&amp;gt;% select(busco_id, description)
-&lt;/pre&gt;
 &lt;/div&gt;
-&lt;p&gt;
-And this is how the table looks like:
-&lt;/p&gt;
-&lt;pre class=&quot;example&quot;&gt;
-     busco_id                                              description
-1 EOG093714Q2                          Mediator complex, subunit Med31
-2 EOG093714Q2       Mediator complex, subunit Med31 domain superfamily
-3 EOG09370GHP                       Reduced growth phenotype protein 1
-4 EOG09370OS5 Ribosomal protein S2, flavodoxin-like domain superfamily
-5 EOG09370OS5                                     Ribosomal protein S2
-6 EOG09370OS5      Ribosomal protein S2, bacteria/mitochondria/plastid
-7 EOG09370OS5                     Ribosomal protein S2, conserved site
-&lt;/pre&gt;</content><author><name>thackl</name></author><summary type="html">BUSCO lacks descriptions of the ortholog groups it searches for. You can query OrthoDB via its API to map BUSCO IDs and pull the information. Below is a short R snippet to automate this and produce a nice table.</summary></entry><entry><title type="html">Predict hosts and attachment sites of lysogenic phages</title><link href="/predicting-hosts-and-attachment-sites-of-lysogenic-phages" rel="alternate" type="text/html" title="Predict hosts and attachment sites of lysogenic phages" /><published>2019-05-27T00:00:00+02:00</published><updated>2019-05-27T00:00:00+02:00</updated><id>/predicting-hosts-and-attachment-sites-of-lysogenic-phages</id><content type="html" xml:base="/predicting-hosts-and-attachment-sites-of-lysogenic-phages">&lt;p&gt;
-Thanks to new sequencing and assembly strategies, new viral genomes are
-currently uncovered on what feels like a daily basis. Virus-host relationships,
-however, often remain unclear because most genomes are obtained from community
-samples rather than cultures. Here, I describe a way to link phages with a
-lysogenic lifestyle to their respective hosts using only sequence information.
-&lt;/p&gt;
-
-&lt;p&gt;
-Lysogenic phages - viruses that can integrate into their host's genome - often
-share a short sequence with their host that serves as attachment site during the
-integration. This roughly 40bp long motif typically is part of one of the host's
-tRNA genes. By analyzing short matches between phage contigs and tRNAs of
-potential hosts (sympatric microbes), it is possible to predict phage attachment
-sites and putative host, i.e. bacteria carrying the respective tRNA.
-&lt;/p&gt;
-
-&lt;p&gt;
-To facilitate this kind of analysis, I wrote &lt;a href=&quot;https://github.com/thackl/host-phage-tRNA-att-finder][host-phage-tRNA-att-finder&quot;&gt;host-phage-tRNA-att-finder&lt;/a&gt;, a small
-toolkit to run the following workflow:
-&lt;/p&gt;
-
-&lt;ol class=&quot;org-ol&quot;&gt;
-&lt;li&gt;Predict host tRNAs in putative host contigs using &lt;a href=&quot;https://dx.doi.org/10.1093%252Fnar%252Fgkh152&quot;&gt;ARAGORN&lt;/a&gt; &lt;b&gt;or&lt;/b&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;
-Supply a set of known tRNAs.
-&lt;/p&gt;
-&lt;ol class=&quot;org-ol&quot;&gt;
-&lt;li&gt;Blast tRNAs against the phage contigs to identify high-identity short matches
-(&amp;gt;80% identity, ~20-40bp) with match/gap cost favoring these kinds of hits.
-&lt;/li&gt;
-&lt;li&gt;Predict Integrase genes on phage contigs as sanity check - lysogenic phages
-with an attachment site should also carry an integrase gene.
-&lt;/li&gt;
-&lt;li&gt;Aggregate and filter the results for spurious or ambiguous matches.
-&lt;/li&gt;
-&lt;li&gt;Plot the distribution of filtered hits across different taxonomic classes.
-&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>thackl</name></author><summary type="html">Thanks to new sequencing and assembly strategies, new viral genomes are currently uncovered on what feels like a daily basis. Virus-host relationships, however, often remain unclear because most genomes are obtained from community samples rather than cultures. Here, I describe a way to link phages with a lysogenic lifestyle to their respective hosts using only sequence information.</summary></entry><entry><title type="html">Automatically update your publication list using R scholar</title><link href="/automatically-update-publications-with-R-scholar" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar" /><published>2018-11-27T00:00:00+01:00</published><updated>2018-11-27T00:00:00+01:00</updated><id>/automatically-update-publications-with-R-scholar</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar">&lt;p&gt;
+</description>
+                <pubDate>Tue, 17 Sep 2019 00:00:00 +0200</pubDate>
+                <link>//automatically-update-publications-with-R-scholar-II-get-pdf</link>
+                <guid isPermaLink="true">//automatically-update-publications-with-R-scholar-II-get-pdf</guid>
+                
+                
+                <category>R</category>
+                
+            </item>
+        
+            <item>
+                <title>Automatically update your publication list using R scholar</title>
+                <author>Thomas Hackl</author>
+                <description>&lt;p&gt;
 I really dislike tedious tasks like updating my publication list on my
 website. So here is a very short script that does the job for me. It uses the R
 library &lt;a href=&quot;https://CRAN.R-project.org/package=scholar&quot;&gt;scholar&lt;/a&gt; to pull my publications from my google scholar profile. I then
@@ -285,7 +214,21 @@ html_4 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; c(
 &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;write the html list to a file&lt;/span&gt;
 writeLines(html_4, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;../_includes/publications.html&quot;&lt;/span&gt;)
 &lt;/pre&gt;
-&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">I really dislike tedious tasks like updating my publication list on my website. So here is a very short script that does the job for me. It uses the R library scholar to pull my publications from my google scholar profile. I then use some quick &amp;amp; dirty string parsing to convert that data into a html table. I'm sure there are a tons of more elegant ways out there, but this worked, and only took me minutes to set up.</summary></entry><entry><title type="html">Plotting a ggtree and ggplots side by side</title><link href="/ggtree-composite-plots" rel="alternate" type="text/html" title="Plotting a ggtree and ggplots side by side" /><published>2018-10-08T00:00:00+02:00</published><updated>2018-10-08T00:00:00+02:00</updated><id>/ggtree-composite-plots</id><content type="html" xml:base="/ggtree-composite-plots">&lt;p&gt;
+&lt;/div&gt;
+</description>
+                <pubDate>Tue, 27 Nov 2018 00:00:00 +0100</pubDate>
+                <link>//automatically-update-publications-with-R-scholar</link>
+                <guid isPermaLink="true">//automatically-update-publications-with-R-scholar</guid>
+                
+                
+                <category>R</category>
+                
+            </item>
+        
+            <item>
+                <title>Plotting a ggtree and ggplots side by side</title>
+                <author>Thomas Hackl</author>
+                <description>&lt;p&gt;
 Plotting phylogenies and associated data side by side is a good way to explore
 evolutionary patterns in your data.  In this post I will describe my approach
 for creating such plots in R using &lt;a href=&quot;https://ggplot2.tidyverse.org/index.html&quot;&gt;ggplot&lt;/a&gt;, &lt;a href=&quot;https://guangchuangyu.github.io/software/ggtree/&quot;&gt;ggtree&lt;/a&gt;, and &lt;a href=&quot;https://github.com/thomasp85/patchwork&quot;&gt;patchwork&lt;/a&gt;.
@@ -538,133 +481,18 @@ used for the initial unaligned ggtree/ggplots. This makes it very easy to go
 from a set of generic plots to this composite plot. At the same time, we retain
 the level modularity and customizability that we had with the original
 ggplots. This, in my opinion, is what makes this approach powerful.
-&lt;/p&gt;</content><author><name>thackl</name></author><summary type="html">Plotting phylogenies and associated data side by side is a good way to explore evolutionary patterns in your data. In this post I will describe my approach for creating such plots in R using ggplot, ggtree, and patchwork.</summary></entry><entry><title type="html">Blogging with Emacs Org-Mode and Jekyll</title><link href="/blogging-with-emacs-org-mode-and-jekyll" rel="alternate" type="text/html" title="Blogging with Emacs Org-Mode and Jekyll" /><published>2018-09-04T00:00:00+02:00</published><updated>2018-09-04T00:00:00+02:00</updated><id>/blogging-with-emacs-org-mode-and-jekyll</id><content type="html" xml:base="/blogging-with-emacs-org-mode-and-jekyll">&lt;p&gt;
-I've been thinking about getting my own blog up for more than a while now, and
-finally made it happen! This is is my first post, and it will cover the basics
-steps I took to get this site up and running.
 &lt;/p&gt;
-
-&lt;p&gt;
-During my day-to-day work, I make heavy use of Emacs, &lt;a href=&quot;https://orgmode.org/&quot;&gt;Emacs Org-Mode&lt;/a&gt;, git and
-&lt;a href=&quot;https://github.com/thackl&quot;&gt;GitHub&lt;/a&gt;. So it only felt natural to also go and try to use those tools for my
-blogging adventure. And for the purpose of this post, I will assume a basic
-familiarity with those tools. After reviewing a few options on &lt;a href=&quot;https://orgmode.org/worg/org-blog-wiki.html&quot;&gt;org-blog-wiki&lt;/a&gt;, I
-found a combination of &lt;a href=&quot;https://orgmode.org/worg/org-tutorials/org-jekyll.html&quot;&gt;Org-Mode and Jekyll&lt;/a&gt; to be the most promising route. And
-as it turns out, setting it up is indeed quite straightforward.
-&lt;/p&gt;
-
-&lt;p&gt;
-First, we need Jekyll and Ruby. If you're on a current Ubuntu, the following commands should do.
-&lt;/p&gt;
-
-&lt;div class=&quot;org-src-container&quot;&gt;
-
-&lt;pre class=&quot;src src-sh&quot;&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;install command on Ubuntu&lt;/span&gt;
-sudo apt -y install ruby ruby-dev build-essential
-&lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;set up local ~/ruby-gems folder in .path&lt;/span&gt;
-gem install jekyll bundler jekyll-sitemap pygments.rb
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;
-Next, we need to set up the blog, populate it using a Jekyll template structure,
-and push it to GitHub. And at this point, we are already live!
-&lt;/p&gt;
-
-&lt;div class=&quot;org-src-container&quot;&gt;
-
-&lt;pre class=&quot;src src-sh&quot;&gt;&lt;span style=&quot;color: #f08080;&quot;&gt;cd&lt;/span&gt; ~/projects/communicate/blog
-git init
-git create thackl.github.io &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;use your own username here&lt;/span&gt;
-
-jekyll new --force . &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;otherwise complains about non-empty&lt;/span&gt;
-bundle exec jekyll serve &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;now it runs locally: http://localhost:4000/&lt;/span&gt;
-
-sed -i &lt;span style=&quot;color: #deb887;&quot;&gt;'/_site/d'&lt;/span&gt; .gitignore &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;remove _site from .gitignore&lt;/span&gt;
-git add *
-git commit -am &lt;span style=&quot;color: #deb887;&quot;&gt;'jekyll scaffold'&lt;/span&gt;
-git push -u origin master &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;we're live: https://thackl.github.io/&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;
-What is still missing, though, is a way to write blog posts in Org-Mode, and
-somehow convert them so they can be hosted by Jekyll. To achieve this, we will
-rely on Emacs publishing engine which offers conversion of .org pages to .html
-pages. There are different ways how to set the overall blog structure, depending
-on whether one wants to be able to write all pages, including the front page,
-about pages, etc. using org, or just the posts themselves.
-&lt;/p&gt;
-
-&lt;p&gt;
-For the sake of simplicity, I went with option two: I only write the actual
-posts in Org-Mode, but not any of the other content pages. To do this, we need
-two things: 
-&lt;/p&gt;
-
-&lt;p&gt;
-A sub-directory to store the org-posts in
-&lt;/p&gt;
-
-&lt;div class=&quot;org-src-container&quot;&gt;
-
-&lt;pre class=&quot;src src-sh&quot;&gt;mkdir _org &amp;amp;&amp;amp; &lt;span style=&quot;color: #f08080;&quot;&gt;cd&lt;/span&gt; _org
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;
-and a minimal configuration for the org-mode publishing system in our
-&lt;code&gt;~/.emacs&lt;/code&gt;, so the html exports end up at the right location.
-&lt;/p&gt;
-
-&lt;div class=&quot;org-src-container&quot;&gt;
-
-&lt;pre class=&quot;src src-elisp&quot;&gt;(&lt;span style=&quot;color: #8f62a6;&quot;&gt;setq&lt;/span&gt; org-publish-project-alist
-      '((&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;thackl.github.io&quot;&lt;/span&gt; &lt;span style=&quot;color: #7f7f7f;&quot;&gt;;; &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;my blog project (just a name)&lt;/span&gt;
-         &lt;span style=&quot;color: #7f7f7f;&quot;&gt;;; &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;Path to org files.&lt;/span&gt;
-         &lt;span style=&quot;color: #f08080;&quot;&gt;:base-directory&lt;/span&gt; &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;~/projects/communicate/blog/_org&quot;&lt;/span&gt;
-         &lt;span style=&quot;color: #f08080;&quot;&gt;:base-extension&lt;/span&gt; &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;org&quot;&lt;/span&gt;
-         &lt;span style=&quot;color: #7f7f7f;&quot;&gt;;; &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;Path to Jekyll Posts&lt;/span&gt;
-         &lt;span style=&quot;color: #f08080;&quot;&gt;:publishing-directory&lt;/span&gt; &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;~/projects/communicate/blog/_posts/&quot;&lt;/span&gt;
-         &lt;span style=&quot;color: #f08080;&quot;&gt;:recursive&lt;/span&gt; t
-         &lt;span style=&quot;color: #f08080;&quot;&gt;:publishing-function&lt;/span&gt; org-html-publish-to-html
-         &lt;span style=&quot;color: #f08080;&quot;&gt;:headline-levels&lt;/span&gt; 4
-         &lt;span style=&quot;color: #f08080;&quot;&gt;:html-extension&lt;/span&gt; &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;html&quot;&lt;/span&gt;
-         &lt;span style=&quot;color: #f08080;&quot;&gt;:body-only&lt;/span&gt; t
-         )))
-&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;
-Now, we are ready to write our first simple post. Start with opening a file at
-&lt;code&gt;_org/YYYY-MM-DD-first-post.org&lt;/code&gt; substituting &lt;code&gt;YYYY-MM-DD&lt;/code&gt; with today's
-date. Add a Jekyll-style &lt;a href=&quot;https://jekyllrb.com/docs/front-matter/&quot;&gt;Front Matter&lt;/a&gt; section with some required meta
-information.
-&lt;/p&gt;
-
-&lt;pre class=&quot;example&quot;&gt;
----
-layout: post
-title: &quot;Using org-mode with Jekyll&quot;
-excerpt: Introduce how to use Emacs's Org-mode with Jekyll to generate GitHub Pages
----
-&lt;/pre&gt;
-
-&lt;p&gt;
-Then, add some content, aka &lt;i&gt;this&lt;/i&gt;, and finally, run the Emacs publishing
-command &lt;code&gt;C-c C-e P f&lt;/code&gt; to convert &lt;code&gt;_org/2018-09-04-foo-post.org&lt;/code&gt; to
-&lt;code&gt;_posts/2018-09-04-foo-post.html&lt;/code&gt;.
-&lt;/p&gt;
-
-&lt;p&gt;
-Now check &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; to see a local copy of your post (make sure
-&lt;code&gt;bundle exec jekyll serve&lt;/code&gt; is still running).  If you like what you see, commit
-and push the changes, so that they appear on your &lt;a href=&quot;https://USERNAME.github.io/&quot;&gt;https://USERNAME.github.io/&lt;/a&gt;
-site. Now it should look something like this:
-&lt;/p&gt;
-
-
-&lt;div class=&quot;figure&quot;&gt;
-&lt;p&gt;&lt;img src=&quot;img/jekyll-minima.png&quot; alt=&quot;jekyll-minima.png&quot; /&gt;
-&lt;/p&gt;
-&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">I've been thinking about getting my own blog up for more than a while now, and finally made it happen! This is is my first post, and it will cover the basics steps I took to get this site up and running.</summary></entry></feed>
+</description>
+                <pubDate>Mon, 08 Oct 2018 00:00:00 +0200</pubDate>
+                <link>//ggtree-composite-plots</link>
+                <guid isPermaLink="true">//ggtree-composite-plots</guid>
+                
+                
+                <category>R</category>
+                
+                <category>genomics</category>
+                
+            </item>
+        
+    </channel>
+</rss>

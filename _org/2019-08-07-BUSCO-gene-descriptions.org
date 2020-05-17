@@ -5,6 +5,7 @@ class: post-template
 title: "Get BUSCO gene descriptions from OrthoDB"
 author: thackl
 cover: img/mojave.jpg
+categories: [genomics]
 ---
 #+END_HTML
 

@@ -5,6 +5,7 @@ class: post-template
 title: "Add a language label to code chunks in pkgdown articles"
 author: thackl
 cover: img/pkgdown-code-labels-header.png
+categories: [R]
 ---
 #+END_HTML
 

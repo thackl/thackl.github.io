@@ -5,6 +5,7 @@ class: post-template
 title: "Automatically update your publication list using R scholar II - get a PDF"
 author: thackl
 cover: img/google-scholar-books-pdf.png
+categories: [R]
 ---
 #+END_HTML
 
