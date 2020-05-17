@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>thacklog</title>
-        <description>Thomas Hackl &lt;br&gt; Coding Biologist</description>
-        <link>http://localhost:4000//</link>
-        <atom:link href="http://localhost:4000//feed-r.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 17 May 2020 10:13:15 +0200</pubDate>
-        <lastBuildDate>Sun, 17 May 2020 10:13:15 +0200</lastBuildDate>
+        <description>Thomas Hackl | Coding Biologist</description>
+        <link>//</link>
+        <atom:link href="//feed-r.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Sun, 17 May 2020 10:44:25 +0200</pubDate>
+        <lastBuildDate>Sun, 17 May 2020 10:44:25 +0200</lastBuildDate>
         <generator>Jekyll v3.6.2</generator>
         
             <item>
@@ -89,8 +89,8 @@ $( document ).ready(addLang)
 &lt;/div&gt;
 </description>
                 <pubDate>Sat, 16 May 2020 00:00:00 +0200</pubDate>
-                <link>http://localhost:4000//language-labels-for-pkgdown-code-chunks</link>
-                <guid isPermaLink="true">http://localhost:4000//language-labels-for-pkgdown-code-chunks</guid>
+                <link>//language-labels-for-pkgdown-code-chunks</link>
+                <guid isPermaLink="true">//language-labels-for-pkgdown-code-chunks</guid>
                 
                 
                 <category>R</category>
@@ -139,8 +139,8 @@ chrome_print(
 &lt;/div&gt;
 </description>
                 <pubDate>Tue, 17 Sep 2019 00:00:00 +0200</pubDate>
-                <link>http://localhost:4000//automatically-update-publications-with-R-scholar-II-get-pdf</link>
-                <guid isPermaLink="true">http://localhost:4000//automatically-update-publications-with-R-scholar-II-get-pdf</guid>
+                <link>//automatically-update-publications-with-R-scholar-II-get-pdf</link>
+                <guid isPermaLink="true">//automatically-update-publications-with-R-scholar-II-get-pdf</guid>
                 
                 
                 <category>R</category>
@@ -206,7 +206,7 @@ html_3 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; map2
 html_4 &lt;span style=&quot;color: #a2cd5a;&quot;&gt;&amp;lt;-&lt;/span&gt; c(
   paste0(&lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;lt;p style=&quot;text-align: right; margin-top: -40px;&quot;&amp;gt;&amp;lt;small&amp;gt;Last updated &amp;lt;i&amp;gt;'&lt;/span&gt;,
          format(Sys.Date(), format=&lt;span style=&quot;color: #deb887;&quot;&gt;&quot;%B %d, %Y&quot;&lt;/span&gt;),
-         &lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;amp;ndash; Pulled automatically from my &amp;lt;a href=&quot;https://scholar.google.com/citations?hl=en&amp;amp;user=b8bWNkUAAAAJ&quot;&amp;gt;Google Scholar profile&amp;lt;/a&amp;gt;. See &amp;lt;a href=&quot;{{ site.url }}{% post_url 2018-11-27-automatically-update-publications-with-R-scholar %}&quot;&amp;gt;this post&amp;lt;/a&amp;gt; for how it works.&amp;lt;/small&amp;gt;&amp;lt;/p&amp;gt;'&lt;/span&gt;), html_3)
+         &lt;span style=&quot;color: #deb887;&quot;&gt;'&amp;amp;ndash; Pulled automatically from my &amp;lt;a href=&quot;https://scholar.google.com/citations?hl=en&amp;amp;user=b8bWNkUAAAAJ&quot;&amp;gt;Google Scholar profile&amp;lt;/a&amp;gt;. See &amp;lt;a href=&quot;/automatically-update-publications-with-R-scholar&quot;&amp;gt;this post&amp;lt;/a&amp;gt; for how it works.&amp;lt;/small&amp;gt;&amp;lt;/p&amp;gt;'&lt;/span&gt;), html_3)
 
 &lt;span style=&quot;color: #7f7f7f;&quot;&gt;# &lt;/span&gt;&lt;span style=&quot;color: #7f7f7f;&quot;&gt;write the html list to a file&lt;/span&gt;
 writeLines(html_4, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;../_includes/publications.html&quot;&lt;/span&gt;)
@@ -214,8 +214,8 @@ writeLines(html_4, &lt;span style=&quot;color: #deb887;&quot;&gt;&quot;../_inclu
 &lt;/div&gt;
 </description>
                 <pubDate>Tue, 27 Nov 2018 00:00:00 +0100</pubDate>
-                <link>http://localhost:4000//automatically-update-publications-with-R-scholar</link>
-                <guid isPermaLink="true">http://localhost:4000//automatically-update-publications-with-R-scholar</guid>
+                <link>//automatically-update-publications-with-R-scholar</link>
+                <guid isPermaLink="true">//automatically-update-publications-with-R-scholar</guid>
                 
                 
                 <category>R</category>
@@ -480,8 +480,8 @@ ggplots. This, in my opinion, is what makes this approach powerful.
 &lt;/p&gt;
 </description>
                 <pubDate>Mon, 08 Oct 2018 00:00:00 +0200</pubDate>
-                <link>http://localhost:4000//ggtree-composite-plots</link>
-                <guid isPermaLink="true">http://localhost:4000//ggtree-composite-plots</guid>
+                <link>//ggtree-composite-plots</link>
+                <guid isPermaLink="true">//ggtree-composite-plots</guid>
                 
                 
                 <category>R</category>
