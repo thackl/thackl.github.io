@@ -21,7 +21,7 @@ into the {body} of the default.hbs template -->
                 {% endif %}
             </h1>
             <div class="vr"></div>
-            <h2 class="site-description">{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}</h2>
+            <h2 class="site-description">Thomas Hackl <br> Coding Biologist</h2>
         </div>
         {% include site-nav.html %}
     </div>
@@ -30,9 +30,10 @@ into the {body} of the default.hbs template -->
 <!-- The main content area -->
 <main id="site-main" class="site-main outer" role="main">
     <div class="inner">
-
-        <div class="post-feed">
-            <!-- The tag below includes the markup for each post - partials/post-card.hbs -->
+      <!-- link to R-bloggers -->
+      <div class="rbloggers">My R-related posts are listed on <a href="https://www.r-bloggers.com/">R-bloggers</a></div>
+      <div class="post-feed">
+          <!-- The tag below includes the markup for each post - partials/post-card.hbs -->
             {%  include post-card.html %}
         </div>
 

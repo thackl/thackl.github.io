@@ -11,38 +11,39 @@
 
 
 
-    <title>thacklog</title>
+    <title>Thomas Hackl | Coding Biologist</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Styles'n'Scripts -->
     <link rel="stylesheet" type="text/css" href="/assets/built/screen.css" />
     <link rel="stylesheet" type="text/css" href="/assets/built/screen.edited.css" />
     <link rel="stylesheet" type="text/css" href="/assets/built/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/built/thackl.css" />
     <!-- highlight.js -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
     <style>.hljs { background: none; }</style>
 
     <!-- This tag outputs SEO meta+structured data and other important settings -->
-    <meta name="description" content="Thomas Hackl | Coding Biologist" />
+    <meta name="description" content="Musings on 'omics, data and life as a scientist" />
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
     <link rel="canonical" href="/" />
     <meta name="referrer" content="no-referrer-when-downgrade" />
 
      <!--title below is coming from _includes/dynamic_title-->
-    <meta property="og:site_name" content="thacklog" />
+    <meta property="og:site_name" content="Thomas Hackl | Coding Biologist" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="thacklog" />
-    <meta property="og:description" content="Thomas Hackl | Coding Biologist" />
+    <meta property="og:title" content="Thomas Hackl | Coding Biologist" />
+    <meta property="og:description" content="Musings on 'omics, data and life as a scientist" />
     <meta property="og:url" content="/" />
     <meta property="og:image" content="/assets/images/blog-cover-kilauea.jpg" />
     <meta property="article:publisher" content="https://www.facebook.com/false" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="thacklog" />
-    <meta name="twitter:description" content="Thomas Hackl | Coding Biologist" />
+    <meta name="twitter:title" content="Thomas Hackl | Coding Biologist" />
+    <meta name="twitter:description" content="Musings on 'omics, data and life as a scientist" />
     <meta name="twitter:url" content="/" />
     <meta name="twitter:image" content="/assets/images/blog-cover-kilauea.jpg" />
     <meta name="twitter:label1" content="Written by" />
-    <meta name="twitter:data1" content="thacklog" />
+    <meta name="twitter:data1" content="Thomas Hackl | Coding Biologist" />
     <meta name="twitter:site" content="@th4ckl" />
     <meta name="twitter:creator" content="@th4ckl" />
     <meta property="og:image:width" content="2000" />
@@ -54,7 +55,7 @@
     "@type": "Website",
     "publisher": {
         "@type": "Organization",
-        "name": "thacklog",
+        "name": "Thomas Hackl | Coding Biologist",
         "logo": "/assets/images/thackl-logo-blog.png"
     },
     "url": "/",
@@ -68,7 +69,7 @@
         "@type": "WebPage",
         "@id": "/"
     },
-    "description": "Thomas Hackl | Coding Biologist"
+    "description": "Musings on 'omics, data and life as a scientist"
 }
     </script>
 
@@ -81,7 +82,7 @@
     </script> -->
 
     <meta name="generator" content="Jekyll 3.6.2" />
-    <link rel="alternate" type="application/rss+xml" title="thacklog" href="/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Thomas Hackl | Coding Biologist" href="/feed.xml" />
 
 
 </head>
@@ -99,11 +100,11 @@ into the {body} of the default.hbs template -->
         <div class="site-header-content">
             <h1 class="site-title">
                 
-                    <img class="site-logo" src="/assets/images/thackl-logo-blog.png" alt="thacklog"/>
+                    <img class="site-logo" src="/assets/images/thackl-logo-blog.png" alt="Thomas Hackl | Coding Biologist"/>
                 
             </h1>
             <div class="vr"></div>
-            <h2 class="site-description">Thomas Hackl | Coding Biologist</h2>
+            <h2 class="site-description">Thomas Hackl <br> Coding Biologist</h2>
         </div>
         <nav class="site-nav">
     <div class="site-nav-left">
@@ -146,9 +147,10 @@ into the {body} of the default.hbs template -->
 <!-- The main content area -->
 <main id="site-main" class="site-main outer" role="main">
     <div class="inner">
-
-        <div class="post-feed">
-            <!-- The tag below includes the markup for each post - partials/post-card.hbs -->
+      <!-- link to R-bloggers -->
+      <div class="rbloggers">My R-related posts are listed on <a href="https://www.r-bloggers.com/">R-bloggers</a></div>
+      <div class="post-feed">
+          <!-- The tag below includes the markup for each post - partials/post-card.hbs -->
             
     <article class="post-card home-template">
         
@@ -164,7 +166,7 @@ into the {body} of the default.hbs template -->
                     <h2 class="post-card-title">Add a language label to code chunks in pkgdown articles</h2>
                 </header>
                 <section class="post-card-excerpt">
-                    <p>pkgdown nicely renders code chunks in your package's documentation website. However, if you mix in non-R code snippets in your articles, it is difficult to distinguish R code chunks from those written in</p>
+                    <p>pkgdown nicely renders code chunks in your package documentation. However, if you mix in non-R snippets, it gets difficult to distinguish between languages. So how about some nice labels for each code box.</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -239,43 +241,6 @@ into the {body} of the default.hbs template -->
                 </header>
                 <section class="post-card-excerpt">
                     <p>BUSCO lacks descriptions of the ortholog groups it searches for. You can query OrthoDB via its API to map BUSCO IDs and pull the information. Below is a short R snippet to automate</p>
-                </section>
-            </a>
-            <footer class="post-card-meta">
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-                    
-                
-            </footer>
-        </div>
-    </article>
-
-    <article class="post-card home-template">
-        
-            <a class="post-card-image-link" href="/predicting-hosts-and-attachment-sites-of-lysogenic-phages">
-                <div class="post-card-image" style="background-image: url(/img/phage-host-pred-with-phage.png)"></div>
-            </a>
-        
-        <div class="post-card-content">
-            <a class="post-card-content-link" href="/predicting-hosts-and-attachment-sites-of-lysogenic-phages">
-                <header class="post-card-header">
-                    
-
-                    <h2 class="post-card-title">Predict hosts and attachment sites of lysogenic phages</h2>
-                </header>
-                <section class="post-card-excerpt">
-                    <p>Thanks to new sequencing and assembly strategies, new viral genomes are currently uncovered on what feels like a daily basis. Virus-host relationships, however, often remain unclear because most genomes are obtained from community</p>
                 </section>
             </a>
             <footer class="post-card-meta">
@@ -422,7 +387,7 @@ into the {body} of the default.hbs template -->
         <!-- The footer at the very bottom of the screen -->
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
-                <section class="copyright"><a href="/">thacklog</a> &copy; 2020</section>
+                <section class="copyright"><a href="/">Thomas Hackl | Coding Biologist</a> &copy; 2020</section>
                 <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> &
                     <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> using
                     <a href="https://github.com/jekyller/jasper2" target="_blank" rel="noopener">Jasper2</a></section>

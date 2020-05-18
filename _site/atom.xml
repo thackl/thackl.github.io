@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title> - Articles</title>
-    <description>Thomas Hackl | Coding Biologist</description>
+    <description>Musings on 'omics, data and life as a scientist</description>
     <link>
     </link>
     
@@ -11,11 +11,9 @@
         <title>Add a language label to code chunks in pkgdown articles</title>
         
           <description>&lt;p&gt;
-pkgdown nicely renders code chunks in your package's documentation
-website. However, if you mix in non-R code snippets in your articles, it is
-difficult to distinguish R code chunks from those written in other
-languages. How nice would it be if each code chunk would have a small label to
-indicate its content's language.
+pkgdown nicely renders code chunks in your package documentation. However, if
+you mix in non-R snippets, it gets difficult to distinguish between
+languages. So how about some nice labels for each code box.
 &lt;/p&gt;
 
 </description>
@@ -62,27 +60,6 @@ R snippet to automate this and produce a nice table.
         <link>
         /BUSCO-gene-descriptions</link>
         <guid isPermaLink="true">/BUSCO-gene-descriptions</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Predict hosts and attachment sites of lysogenic phages</title>
-        
-          <description>&lt;p&gt;
-Thanks to new sequencing and assembly strategies, new viral genomes are
-currently uncovered on what feels like a daily basis. Virus-host relationships,
-however, often remain unclear because most genomes are obtained from community
-samples rather than cultures. Here, I describe a way to link phages with a
-lysogenic lifestyle to their respective hosts using only sequence information.
-&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Mon, 27 May 2019 00:00:00 +0200</pubDate>
-        <link>
-        /predicting-hosts-and-attachment-sites-of-lysogenic-phages</link>
-        <guid isPermaLink="true">/predicting-hosts-and-attachment-sites-of-lysogenic-phages</guid>
       </item>
       
     

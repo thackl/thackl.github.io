@@ -137,5 +137,31 @@ git commit, push -> live
 
 #+END_SRC
 
-* INPG Add RSS feed
+* DONE Add RSS feed and add to R-bloggers
+  CLOSED: [2020-05-17 Sun 10:49]
+** set up the feed
 https://methodmatters.github.io/rss-add-github-blog-to-r-bloggers/
+
+Still has relative urls on images etc. in post body. This can be an issue on
+some feed aggregators. But I think it is not on R-bloggers (see last point on
+check list)
+
+** TODO check R-bloggers guidelines
+
+There are several guidelines you should follow so your site will get on/stay on R-bloggers (and serve the R community as best as possible):
+
+    The feed you submit should ONLY be about R (e.g: with R code, or directly related to the R world/community).
+    If you present a use-case of getting nice results with R then make an effort to have the results in your post reproducible as possible (by including the R code in the post itself or by giving a link to some github repo with your R code).
+    The feed should NOT include tweet like articles (e.g: Short pieces of text)
+    The feed should NOT include posts that only have code snippets. The code should be accompanied by text that clearly explains the context and value of the code that is presented.
+    Make sure the HTML of your feed’s content is well formatted – otherwise it would not be able to load on r-bloggers. This includes to NOT copy-pasting from RStudio’s notebook extension – the feed should NOT include “base64” images, make sure your images are saved as png or similar file formats.
+    The feed should include “well written” articles: please make sure to proof read your English and avoid foul language
+    Submit a feed with full content, abstract/excerpts will not be accepted – this content will be shown in full in R-bloggers’ feed and email. Here are a few tips for how to get it done. On WordPress blogs you can fix this by going to settings -> reading -> “For each article in a feed, show” -> “Full text”. On Hugo blogs (blogdown blogs)  you can try the following:
+    Configure the default RSS template given here: https://gohugo.io/templates/rss/#the-embedded-rss-xml
+    replacing `{{ .Summary | html }}` with `{{ .Content | html }}`
+    The content should of the feed should not include any automatic redirects
+    Submit your blog’s feed only after you have already published some posts (at least two, and ones that show your vast knowledge of R and related disciplines)
+    Link to R-bloggers from your blogroll (sidebar), and/or from a post. You do not have to do it, but it is for the greater good to help bring new readers to r-bloggers
+    Please avoid overloading/spamming the site with: “too many” posts per day, SEO driven content or links, ads in the posts (banners, affiliate links etc.). Such content may be changed by R-bloggers (automatically or manually) or removed. If you wish to make sure your blogging practices fits the site you can e-mail me for questions.
+    Make sure your feed is fast to load. If using WordPress, consider a caching plugin (such as wp super cache, or W3 total cache. Using feedburner and submitting their feed is also good)
+    Check that your feed loads well (no issues, the content is shown in full, etc.), but using the following URL: https://simplepie.org/demo/ (fix any problems before submitting, if I check a site and it is not working properly, it may take me a long time before I get back to checking it, or emailing you about it)

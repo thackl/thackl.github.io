@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>thacklog</title>
-        <description>Thomas Hackl | Coding Biologist</description>
+        <title>Thomas Hackl | Coding Biologist</title>
+        <description>Musings on 'omics, data and life as a scientist</description>
         <link>//</link>
         <atom:link href="//feed-r.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 17 May 2020 10:44:25 +0200</pubDate>
-        <lastBuildDate>Sun, 17 May 2020 10:44:25 +0200</lastBuildDate>
+        <pubDate>Mon, 18 May 2020 15:37:07 +0200</pubDate>
+        <lastBuildDate>Mon, 18 May 2020 15:37:07 +0200</lastBuildDate>
         <generator>Jekyll v3.6.2</generator>
         
             <item>
                 <title>Add a language label to code chunks in pkgdown articles</title>
                 <description>&lt;p&gt;
-pkgdown nicely renders code chunks in your package's documentation
-website. However, if you mix in non-R code snippets in your articles, it is
-difficult to distinguish R code chunks from those written in other
-languages. How nice would it be if each code chunk would have a small label to
-indicate its content's language.
+pkgdown nicely renders code chunks in your package documentation. However, if
+you mix in non-R snippets, it gets difficult to distinguish between
+languages. So how about some nice labels for each code box.
 &lt;/p&gt;
 
 &lt;p&gt;

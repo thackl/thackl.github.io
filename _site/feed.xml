@@ -1,9 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-05-17T10:44:25+02:00</updated><id>/</id><title type="html">thacklog</title><subtitle>Thomas Hackl | Coding Biologist</subtitle><entry><title type="html">Add a language label to code chunks in pkgdown articles</title><link href="/language-labels-for-pkgdown-code-chunks" rel="alternate" type="text/html" title="Add a language label to code chunks in pkgdown articles" /><published>2020-05-16T00:00:00+02:00</published><updated>2020-05-16T00:00:00+02:00</updated><id>/language-labels-for-pkgdown-code-chunks</id><content type="html" xml:base="/language-labels-for-pkgdown-code-chunks">&lt;p&gt;
-pkgdown nicely renders code chunks in your package's documentation
-website. However, if you mix in non-R code snippets in your articles, it is
-difficult to distinguish R code chunks from those written in other
-languages. How nice would it be if each code chunk would have a small label to
-indicate its content's language.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-05-18T15:37:07+02:00</updated><id>/</id><title type="html">Thomas Hackl | Coding Biologist</title><subtitle>Musings on 'omics, data and life as a scientist</subtitle><entry><title type="html">Add a language label to code chunks in pkgdown articles</title><link href="/language-labels-for-pkgdown-code-chunks" rel="alternate" type="text/html" title="Add a language label to code chunks in pkgdown articles" /><published>2020-05-16T00:00:00+02:00</published><updated>2020-05-16T00:00:00+02:00</updated><id>/language-labels-for-pkgdown-code-chunks</id><content type="html" xml:base="/language-labels-for-pkgdown-code-chunks">&lt;p&gt;
+pkgdown nicely renders code chunks in your package documentation. However, if
+you mix in non-R snippets, it gets difficult to distinguish between
+languages. So how about some nice labels for each code box.
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -73,7 +71,7 @@ $( document ).ready(addLang)
     &lt;span style=&quot;color: #8f62a6;&quot;&gt;height&lt;/span&gt;: 12px;
 }
 &lt;/pre&gt;
-&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">pkgdown nicely renders code chunks in your package's documentation website. However, if you mix in non-R code snippets in your articles, it is difficult to distinguish R code chunks from those written in other languages. How nice would it be if each code chunk would have a small label to indicate its content's language.</summary></entry><entry><title type="html">Automatically update your publication list using R scholar II - get a PDF</title><link href="/automatically-update-publications-with-R-scholar-II-get-pdf" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar II - get a PDF" /><published>2019-09-17T00:00:00+02:00</published><updated>2019-09-17T00:00:00+02:00</updated><id>/automatically-update-publications-with-R-scholar-II-get-pdf</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar-II-get-pdf">&lt;p&gt;
+&lt;/div&gt;</content><author><name>thackl</name></author><summary type="html">pkgdown nicely renders code chunks in your package documentation. However, if you mix in non-R snippets, it gets difficult to distinguish between languages. So how about some nice labels for each code box.</summary></entry><entry><title type="html">Automatically update your publication list using R scholar II - get a PDF</title><link href="/automatically-update-publications-with-R-scholar-II-get-pdf" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar II - get a PDF" /><published>2019-09-17T00:00:00+02:00</published><updated>2019-09-17T00:00:00+02:00</updated><id>/automatically-update-publications-with-R-scholar-II-get-pdf</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar-II-get-pdf">&lt;p&gt;
 &lt;a href=&quot;http://alecri.github.io/&quot;&gt;Alessio&lt;/a&gt; apparently read my blog post on &lt;a href=&quot;https://thackl.github.io/automatically-update-publications-with-R-scholar&quot;&gt;how to automatically update your
 publication list using R and google scholar&lt;/a&gt;. He contacted me wondering if there
 is also a solution to get a PDF. Good question, thanks!
@@ -183,47 +181,7 @@ And this is how the table looks like:
 5 EOG09370OS5                                     Ribosomal protein S2
 6 EOG09370OS5      Ribosomal protein S2, bacteria/mitochondria/plastid
 7 EOG09370OS5                     Ribosomal protein S2, conserved site
-&lt;/pre&gt;</content><author><name>thackl</name></author><summary type="html">BUSCO lacks descriptions of the ortholog groups it searches for. You can query OrthoDB via its API to map BUSCO IDs and pull the information. Below is a short R snippet to automate this and produce a nice table.</summary></entry><entry><title type="html">Predict hosts and attachment sites of lysogenic phages</title><link href="/predicting-hosts-and-attachment-sites-of-lysogenic-phages" rel="alternate" type="text/html" title="Predict hosts and attachment sites of lysogenic phages" /><published>2019-05-27T00:00:00+02:00</published><updated>2019-05-27T00:00:00+02:00</updated><id>/predicting-hosts-and-attachment-sites-of-lysogenic-phages</id><content type="html" xml:base="/predicting-hosts-and-attachment-sites-of-lysogenic-phages">&lt;p&gt;
-Thanks to new sequencing and assembly strategies, new viral genomes are
-currently uncovered on what feels like a daily basis. Virus-host relationships,
-however, often remain unclear because most genomes are obtained from community
-samples rather than cultures. Here, I describe a way to link phages with a
-lysogenic lifestyle to their respective hosts using only sequence information.
-&lt;/p&gt;
-
-&lt;p&gt;
-Lysogenic phages - viruses that can integrate into their host's genome - often
-share a short sequence with their host that serves as attachment site during the
-integration. This roughly 40bp long motif typically is part of one of the host's
-tRNA genes. By analyzing short matches between phage contigs and tRNAs of
-potential hosts (sympatric microbes), it is possible to predict phage attachment
-sites and putative host, i.e. bacteria carrying the respective tRNA.
-&lt;/p&gt;
-
-&lt;p&gt;
-To facilitate this kind of analysis, I wrote &lt;a href=&quot;https://github.com/thackl/host-phage-tRNA-att-finder][host-phage-tRNA-att-finder&quot;&gt;host-phage-tRNA-att-finder&lt;/a&gt;, a small
-toolkit to run the following workflow:
-&lt;/p&gt;
-
-&lt;ol class=&quot;org-ol&quot;&gt;
-&lt;li&gt;Predict host tRNAs in putative host contigs using &lt;a href=&quot;https://dx.doi.org/10.1093%252Fnar%252Fgkh152&quot;&gt;ARAGORN&lt;/a&gt; &lt;b&gt;or&lt;/b&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;
-Supply a set of known tRNAs.
-&lt;/p&gt;
-&lt;ol class=&quot;org-ol&quot;&gt;
-&lt;li&gt;Blast tRNAs against the phage contigs to identify high-identity short matches
-(&amp;gt;80% identity, ~20-40bp) with match/gap cost favoring these kinds of hits.
-&lt;/li&gt;
-&lt;li&gt;Predict Integrase genes on phage contigs as sanity check - lysogenic phages
-with an attachment site should also carry an integrase gene.
-&lt;/li&gt;
-&lt;li&gt;Aggregate and filter the results for spurious or ambiguous matches.
-&lt;/li&gt;
-&lt;li&gt;Plot the distribution of filtered hits across different taxonomic classes.
-&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>thackl</name></author><summary type="html">Thanks to new sequencing and assembly strategies, new viral genomes are currently uncovered on what feels like a daily basis. Virus-host relationships, however, often remain unclear because most genomes are obtained from community samples rather than cultures. Here, I describe a way to link phages with a lysogenic lifestyle to their respective hosts using only sequence information.</summary></entry><entry><title type="html">Automatically update your publication list using R scholar</title><link href="/automatically-update-publications-with-R-scholar" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar" /><published>2018-11-27T00:00:00+01:00</published><updated>2018-11-27T00:00:00+01:00</updated><id>/automatically-update-publications-with-R-scholar</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar">&lt;p&gt;
+&lt;/pre&gt;</content><author><name>thackl</name></author><summary type="html">BUSCO lacks descriptions of the ortholog groups it searches for. You can query OrthoDB via its API to map BUSCO IDs and pull the information. Below is a short R snippet to automate this and produce a nice table.</summary></entry><entry><title type="html">Automatically update your publication list using R scholar</title><link href="/automatically-update-publications-with-R-scholar" rel="alternate" type="text/html" title="Automatically update your publication list using R scholar" /><published>2018-11-27T00:00:00+01:00</published><updated>2018-11-27T00:00:00+01:00</updated><id>/automatically-update-publications-with-R-scholar</id><content type="html" xml:base="/automatically-update-publications-with-R-scholar">&lt;p&gt;
 I really dislike tedious tasks like updating my publication list on my
 website. So here is a very short script that does the job for me. It uses the R
 library &lt;a href=&quot;https://CRAN.R-project.org/package=scholar&quot;&gt;scholar&lt;/a&gt; to pull my publications from my google scholar profile. I then

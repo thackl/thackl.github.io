@@ -8,8 +8,8 @@ language: 'en-us'
 baseurl: /
 
 # Website info
-title: thacklog
-description: Thomas Hackl | Coding Biologist
+title: "Thomas Hackl | Coding Biologist"
+description: "Musings on 'omics, data and life as a scientist"
 cover: assets/images/blog-cover-kilauea.jpg
 logo: assets/images/thackl-logo-blog.png
 favicon: assets/images/favicon.png

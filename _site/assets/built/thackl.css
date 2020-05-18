@@ -1,0 +1,23 @@
+@media (min-width: 900px) {
+    .home-template .post-feed,
+    .tag-template .post-feed,
+    .author-template .post-feed {
+        margin-top: -50px;
+        padding-top: 0;
+    }
+    .home-template .site-nav {
+        position: relative;
+        top: -60px;
+    }
+}
+
+.social-links a:last-of-type {
+    padding-right: 0px;
+}
+
+.rbloggers {
+    font-size: 75%;
+    color: #fff;
+    float: right;
+    margin-top: -25px;
+}
